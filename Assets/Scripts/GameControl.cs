@@ -14,16 +14,19 @@ public class GameControl : MonoBehaviour
     List<Transform> Row1 = new List<Transform>();
     List<Transform> Row2 = new List<Transform>();
     List<Transform> Row3 = new List<Transform>();
-    List<Sprite> Pictures = new List<Sprite>();
+
+    private bool cat, dog;
 
 
-    public Image wordImage;
+    public Image centerWordImage, leftWordImage, rightWordImage;
     public Sprite catSprite, dogSprite, bearSprite, frogSprite, goatSprite, duckSprite, snakeSprite, mouseSprite, horseSprite, tigerSprite, zebraSprite, lizardSprite, donkeySprite, monkeySprite;
 
 
     void Start()
     {
-        wordImage.preserveAspect = true;
+        centerWordImage.preserveAspect = true;
+        leftWordImage.preserveAspect = true;
+        rightWordImage.preserveAspect = true;
 
         Col1.Add(A4);
         Col1.Add(A5);
@@ -65,11 +68,23 @@ public class GameControl : MonoBehaviour
         Row3.Add(H6);
     }
 
-    private void ClearPic()
+    private void ClearCenterImage()
     {
-        var tempColor = wordImage.color;
+        var tempColor = centerWordImage.color;
         tempColor.a = 0f;
-        wordImage.color = tempColor;
+        centerWordImage.color = tempColor;
+    }
+    private void ClearLeftImage()
+    {
+        var tempColor = leftWordImage.color;
+        tempColor.a = 0f;
+        leftWordImage.color = tempColor;
+    }
+    private void ClearRightImage()
+    {
+        var tempColor = rightWordImage.color;
+        tempColor.a = 0f;
+        rightWordImage.color = tempColor;
     }
 
 
@@ -81,51 +96,85 @@ public class GameControl : MonoBehaviour
         Row1[Row1.IndexOf(C.parent) + 1].GetChild(0).gameObject.name == "A" &&
         Row1[Row1.IndexOf(C.parent) + 2].GetChild(0).gameObject.name == "T")
              ||
-        //    //Row 2
+            //Row 2
             (Row2.Contains(C.parent) && Row2.Contains(A.parent) && Row2.Contains(T.parent) &&
              Row2[Row2.IndexOf(C.parent) + 1].GetChild(0).gameObject.name == "A" &&
              Row2[Row2.IndexOf(C.parent) + 2].GetChild(0).gameObject.name == "T")
              ||
-        //     //Row 3
+             //Row 3
              (Row3.Contains(C.parent) && Row3.Contains(A.parent) && Row3.Contains(T.parent) &&
              Row3[Row3.IndexOf(C.parent) + 1].GetChild(0).gameObject.name == "A" &&
              Row3[Row3.IndexOf(C.parent) + 2].GetChild(0).gameObject.name == "T"))
         {
-            var tempColor = wordImage.color;
+            var tempColor = centerWordImage.color;
             tempColor.a = 1f;
-            wordImage.color = tempColor;
-            wordImage.sprite = catSprite;
+            centerWordImage.color = tempColor;
+            cat = true;
         }
         else
         {
-            var tempColor = wordImage.color;
-            tempColor.a = 0f;
-            wordImage.color = tempColor;
+            cat = false;
+        }
+
+        //DOG
+        //Row 1
+        if ((Row1.Contains(D.parent) && Row1.Contains(O.parent) && Row1.Contains(G.parent) &&
+        Row1[Row1.IndexOf(D.parent) + 1].GetChild(0).gameObject.name == "O" &&
+        Row1[Row1.IndexOf(D.parent) + 2].GetChild(0).gameObject.name == "G")
+             ||
+            //Row 2
+            (Row2.Contains(D.parent) && Row2.Contains(O.parent) && Row2.Contains(G.parent) &&
+             Row2[Row2.IndexOf(D.parent) + 1].GetChild(0).gameObject.name == "O" &&
+             Row2[Row2.IndexOf(D.parent) + 2].GetChild(0).gameObject.name == "G")
+             ||
+             //Row 3
+             (Row3.Contains(D.parent) && Row3.Contains(O.parent) && Row3.Contains(G.parent) &&
+             Row3[Row3.IndexOf(D.parent) + 1].GetChild(0).gameObject.name == "O" &&
+             Row3[Row3.IndexOf(D.parent) + 2].GetChild(0).gameObject.name == "G"))
+        {
+
+            dog = true;
+        }
+        else
+        {
+            dog = false;
         }
 
 
+        if (cat && dog)
+        {
+            leftWordImage.sprite = catSprite;
+            var tempColor1 = leftWordImage.color;
+            tempColor1.a = 1f;
+            leftWordImage.color = tempColor1;
 
-        // if (Pictures.Count > 0)
-        //     wordImage.sprite = Pictures[0];
-        // else
-        // {
-        //     var tempColor = wordImage.color;
-        //     tempColor.a = 0f;
-        //     wordImage.color = tempColor;
-        // }
+            rightWordImage.sprite = dogSprite;
+            var tempColor2 = rightWordImage.color;
+            tempColor2.a = 1f;
+            rightWordImage.color = tempColor2;
 
-
-
-
-
-
-
-
-
-
-
-
-
+            ClearCenterImage();
+        }
+        else if (cat)
+        {
+            centerWordImage.sprite = catSprite;
+            var tempColor = centerWordImage.color;
+            tempColor.a = 1f;
+            centerWordImage.color = tempColor;
+        }
+        else if (dog)
+        {
+            centerWordImage.sprite = dogSprite;
+            var tempColor = centerWordImage.color;
+            tempColor.a = 1f;
+            centerWordImage.color = tempColor;
+        }
+        else
+        {
+            ClearCenterImage();
+            ClearLeftImage();
+            ClearRightImage();
+        }
 
     }
 
