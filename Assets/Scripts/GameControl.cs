@@ -14,8 +14,13 @@ public class GameControl : MonoBehaviour
     List<Transform> Row1 = new List<Transform>();
     List<Transform> Row2 = new List<Transform>();
     List<Transform> Row3 = new List<Transform>();
+    List<List<Transform>> Rows = new List<List<Transform>>();
+    public bool cat, dog, bear;
 
-    private bool cat, dog;
+    List<string> Words = new List<string>();
+    List<Sprite> WordSprites = new List<Sprite>();
+    int numberWords;
+
 
 
     public Image centerWordImage, leftWordImage, rightWordImage;
@@ -66,27 +71,26 @@ public class GameControl : MonoBehaviour
         Row3.Add(F6);
         Row3.Add(G6);
         Row3.Add(H6);
+
+        Rows.Add(Row1);
+        Rows.Add(Row2);
+        Rows.Add(Row3);
     }
 
-    private void ClearCenterImage()
+    private void ClearImage(Image image)
     {
-        var tempColor = centerWordImage.color;
+        var tempColor = image.color;
         tempColor.a = 0f;
-        centerWordImage.color = tempColor;
-    }
-    private void ClearLeftImage()
-    {
-        var tempColor = leftWordImage.color;
-        tempColor.a = 0f;
-        leftWordImage.color = tempColor;
-    }
-    private void ClearRightImage()
-    {
-        var tempColor = rightWordImage.color;
-        tempColor.a = 0f;
-        rightWordImage.color = tempColor;
+        image.color = tempColor;
     }
 
+    private void AddImage(Image image, Sprite sprite)
+    {
+        var tempColor = image.color;
+        tempColor.a = 1f;
+        image.color = tempColor;
+        image.sprite = sprite;
+    }
 
     void Update()
     {
@@ -106,14 +110,18 @@ public class GameControl : MonoBehaviour
              Row3[Row3.IndexOf(C.parent) + 1].GetChild(0).gameObject.name == "A" &&
              Row3[Row3.IndexOf(C.parent) + 2].GetChild(0).gameObject.name == "T"))
         {
-            var tempColor = centerWordImage.color;
-            tempColor.a = 1f;
-            centerWordImage.color = tempColor;
             cat = true;
+            if (!Words.Contains("cat"))
+                Words.Add("cat");
+
+            if (!WordSprites.Contains(catSprite))
+                WordSprites.Add(catSprite);
         }
         else
         {
             cat = false;
+            Words.Remove("cat");
+            WordSprites.Remove(catSprite);
         }
 
         //DOG
@@ -132,215 +140,66 @@ public class GameControl : MonoBehaviour
              Row3[Row3.IndexOf(D.parent) + 1].GetChild(0).gameObject.name == "O" &&
              Row3[Row3.IndexOf(D.parent) + 2].GetChild(0).gameObject.name == "G"))
         {
-
             dog = true;
+            if (!Words.Contains("dog"))
+            {
+                Words.Add("dog");
+            }
+            if (!WordSprites.Contains(dogSprite))
+                WordSprites.Add(dogSprite);
         }
         else
         {
             dog = false;
+            Words.Remove("dog");
+            WordSprites.Remove(dogSprite);
+        }
+
+        //BEAR
+        for (int i = 0; i < 3; i++)
+        {
+            if ((Rows[i].Contains(B.parent) && Rows[i].Contains(E.parent) && Rows[i].Contains(A.parent) && Rows[i].Contains(R.parent) &&
+            Rows[i][Rows[i].IndexOf(B.parent) + 1].GetChild(0).gameObject.name == "E" &&
+             Rows[i][Rows[i].IndexOf(B.parent) + 2].GetChild(0).gameObject.name == "A" &&
+            Rows[i][Rows[i].IndexOf(B.parent) + 3].GetChild(0).gameObject.name == "R"))
+            {
+                bear = true;
+                if (!Words.Contains("bear"))
+                    Words.Add("bear");
+
+                if (!WordSprites.Contains(bearSprite))
+                    WordSprites.Add(bearSprite);
+
+                break;
+            }
+            else
+            {
+                bear = false;
+                Words.Remove("bear");
+                WordSprites.Remove(bearSprite);
+            }
         }
 
 
-        if (cat && dog)
-        {
-            leftWordImage.sprite = catSprite;
-            var tempColor1 = leftWordImage.color;
-            tempColor1.a = 1f;
-            leftWordImage.color = tempColor1;
+        //RULES ----------------       
 
-            rightWordImage.sprite = dogSprite;
-            var tempColor2 = rightWordImage.color;
-            tempColor2.a = 1f;
-            rightWordImage.color = tempColor2;
-
-            ClearCenterImage();
-        }
-        else if (cat)
+        if (WordSprites.Count > 1)
         {
-            centerWordImage.sprite = catSprite;
-            var tempColor = centerWordImage.color;
-            tempColor.a = 1f;
-            centerWordImage.color = tempColor;
+            ClearImage(centerWordImage);
+            AddImage(leftWordImage, WordSprites[0]);
+            AddImage(rightWordImage, WordSprites[1]);
         }
-        else if (dog)
+        else if (WordSprites.Count == 1)
         {
-            centerWordImage.sprite = dogSprite;
-            var tempColor = centerWordImage.color;
-            tempColor.a = 1f;
-            centerWordImage.color = tempColor;
+            ClearImage(leftWordImage);
+            ClearImage(rightWordImage);
+            AddImage(centerWordImage, WordSprites[0]);
         }
         else
         {
-            ClearCenterImage();
-            ClearLeftImage();
-            ClearRightImage();
+            ClearImage(centerWordImage);
+            ClearImage(leftWordImage);
+            ClearImage(rightWordImage);
         }
-
     }
-
-
-
-    // for (int i = 0; i < Col1.Count; i++)
-    // {
-    //     if (Col1[i].childCount > 0)
-    //         for (int j = 0; j < Col2.Count; j++)
-    //         {
-    //             if (Col2[j].childCount > 0)
-    //                 for (int k = 0; k < Col3.Count; k++)
-    //                 {
-    //                     if (Col3[k].childCount > 0)
-
-    //                         if (Col1[i].GetChild(0).gameObject.name == "C" && Col2[i].GetChild(0).gameObject.name == "A" && Col3[i].GetChild(0).gameObject.name == "T")
-    //                         {
-    //                             var tempColor = wordImage.color;
-    //                             tempColor.a = 1f;
-    //                             wordImage.color = tempColor;
-    //                             wordImage.sprite = catSprite;
-    //                         }
-    //                         else
-    //                         {
-    //                             var tempColor = wordImage.color;
-    //                             tempColor.a = 0f;
-    //                             wordImage.color = tempColor;
-    //                         }
-    //                 }
-    //         }
-    // }
-
-
-    // if (D4.transform.GetChild(0).gameObject.name == "C" && E4.transform.GetChild(0).gameObject.name == "A" && F4.transform.GetChild(0).gameObject.name == "T")
-    // {
-    //     var tempColor = wordImage.color;
-    //     tempColor.a = 1f;
-    //     wordImage.color = tempColor;
-    //     wordImage.sprite = catSprite;
-    // }
-
-
-    //     int wordPanel01LetterCount = wordPanel1.childCount;
-    //     int wordPanel02LetterCount = wordPanel2.childCount;
-    //     //print(letterCount);
-
-    //     //Cat
-    //     if (wordPanel01LetterCount == 3 && wordPanel1.transform.GetChild(0).gameObject.name == "C" && wordPanel1.transform.GetChild(1).gameObject.name == "A" && wordPanel1.transform.GetChild(2).gameObject.name == "T" ||
-    //     wordPanel02LetterCount == 3 && wordPanel2.transform.GetChild(0).gameObject.name == "C" && wordPanel2.transform.GetChild(1).gameObject.name == "A" && wordPanel2.transform.GetChild(2).gameObject.name == "T"
-    //     )
-    //     {
-    //         var tempColor = wordImage.color;
-    //         tempColor.a = 1f;
-    //         wordImage.color = tempColor;
-    //         wordImage.sprite = catSprite;
-
-    //     }
-    //     //Dog
-    //     else if (wordPanel01LetterCount == 3 && wordPanel1.transform.GetChild(0).gameObject.name == "D" && wordPanel1.transform.GetChild(1).gameObject.name == "O" && wordPanel1.transform.GetChild(2).gameObject.name == "G")
-    //     {
-    //         var tempColor = wordImage.color;
-    //         tempColor.a = 1f;
-    //         wordImage.color = tempColor;
-    //         wordImage.sprite = dogSprite;
-    //     }
-    //     //Bear
-    //     else if (wordPanel01LetterCount == 4 && wordPanel1.transform.GetChild(0).gameObject.name == "B" && wordPanel1.transform.GetChild(1).gameObject.name == "E" && wordPanel1.transform.GetChild(2).gameObject.name == "A" && wordPanel1.transform.GetChild(3).gameObject.name == "R")
-    //     {
-    //         var tempColor = wordImage.color;
-    //         tempColor.a = 1f;
-    //         wordImage.color = tempColor;
-    //         wordImage.sprite = bearSprite;
-    //     }
-    //     //Frog
-    //     else if (wordPanel01LetterCount == 4 && wordPanel1.transform.GetChild(0).gameObject.name == "F" && wordPanel1.transform.GetChild(1).gameObject.name == "R" && wordPanel1.transform.GetChild(2).gameObject.name == "O" && wordPanel1.transform.GetChild(3).gameObject.name == "G")
-    //     {
-    //         var tempColor = wordImage.color;
-    //         tempColor.a = 1f;
-    //         wordImage.color = tempColor;
-    //         wordImage.sprite = frogSprite;
-    //     }
-    //     //Goat
-    //     else if (wordPanel01LetterCount == 4 && wordPanel1.transform.GetChild(0).gameObject.name == "G" && wordPanel1.transform.GetChild(1).gameObject.name == "O" && wordPanel1.transform.GetChild(2).gameObject.name == "A" && wordPanel1.transform.GetChild(3).gameObject.name == "T")
-    //     {
-    //         var tempColor = wordImage.color;
-    //         tempColor.a = 1f;
-    //         wordImage.color = tempColor;
-    //         wordImage.sprite = goatSprite;
-    //     }
-    //     //Duck
-    //     else if (wordPanel01LetterCount == 4 && wordPanel1.transform.GetChild(0).gameObject.name == "D" && wordPanel1.transform.GetChild(1).gameObject.name == "U" && wordPanel1.transform.GetChild(2).gameObject.name == "C" && wordPanel1.transform.GetChild(3).gameObject.name == "K")
-    //     {
-    //         var tempColor = wordImage.color;
-    //         tempColor.a = 1f;
-    //         wordImage.color = tempColor;
-    //         wordImage.sprite = duckSprite;
-    //     }
-    //     //Snake
-    //     else if (wordPanel01LetterCount == 5 && wordPanel1.transform.GetChild(0).gameObject.name == "S" && wordPanel1.transform.GetChild(1).gameObject.name == "N" && wordPanel1.transform.GetChild(2).gameObject.name == "A" && wordPanel1.transform.GetChild(3).gameObject.name == "K" && wordPanel1.transform.GetChild(4).gameObject.name == "E")
-    //     {
-    //         var tempColor = wordImage.color;
-    //         tempColor.a = 1f;
-    //         wordImage.color = tempColor;
-    //         wordImage.sprite = snakeSprite;
-    //     }
-    //     //Mouse
-    //     else if (wordPanel01LetterCount == 5 && wordPanel1.transform.GetChild(0).gameObject.name == "M" && wordPanel1.transform.GetChild(1).gameObject.name == "O" && wordPanel1.transform.GetChild(2).gameObject.name == "U" && wordPanel1.transform.GetChild(3).gameObject.name == "S" && wordPanel1.transform.GetChild(4).gameObject.name == "E")
-    //     {
-    //         var tempColor = wordImage.color;
-    //         tempColor.a = 1f;
-    //         wordImage.color = tempColor;
-    //         wordImage.sprite = mouseSprite;
-    //     }
-    //     //Horse
-    //     else if (wordPanel01LetterCount == 5 && wordPanel1.transform.GetChild(0).gameObject.name == "H" && wordPanel1.transform.GetChild(1).gameObject.name == "O" && wordPanel1.transform.GetChild(2).gameObject.name == "R" && wordPanel1.transform.GetChild(3).gameObject.name == "S" && wordPanel1.transform.GetChild(4).gameObject.name == "E")
-    //     {
-    //         var tempColor = wordImage.color;
-    //         tempColor.a = 1f;
-    //         wordImage.color = tempColor;
-    //         wordImage.sprite = horseSprite;
-    //     }
-    //     //Tiger
-    //     else if (wordPanel01LetterCount == 5 && wordPanel1.transform.GetChild(0).gameObject.name == "T" && wordPanel1.transform.GetChild(1).gameObject.name == "I" && wordPanel1.transform.GetChild(2).gameObject.name == "G" && wordPanel1.transform.GetChild(3).gameObject.name == "E" && wordPanel1.transform.GetChild(4).gameObject.name == "R")
-    //     {
-    //         var tempColor = wordImage.color;
-    //         tempColor.a = 1f;
-    //         wordImage.color = tempColor;
-    //         wordImage.sprite = tigerSprite;
-    //     }
-    //     //Zebra
-    //     else if (wordPanel01LetterCount == 5 && wordPanel1.transform.GetChild(0).gameObject.name == "Z" && wordPanel1.transform.GetChild(1).gameObject.name == "E" && wordPanel1.transform.GetChild(2).gameObject.name == "B" && wordPanel1.transform.GetChild(3).gameObject.name == "R" && wordPanel1.transform.GetChild(4).gameObject.name == "A")
-    //     {
-    //         var tempColor = wordImage.color;
-    //         tempColor.a = 1f;
-    //         wordImage.color = tempColor;
-    //         wordImage.sprite = zebraSprite;
-    //     }
-    //     //Lizard
-    //     else if (wordPanel01LetterCount == 6 && wordPanel1.transform.GetChild(0).gameObject.name == "L" && wordPanel1.transform.GetChild(1).gameObject.name == "I" && wordPanel1.transform.GetChild(2).gameObject.name == "Z" && wordPanel1.transform.GetChild(3).gameObject.name == "A" && wordPanel1.transform.GetChild(4).gameObject.name == "R" && wordPanel1.transform.GetChild(5).gameObject.name == "D")
-    //     {
-    //         var tempColor = wordImage.color;
-    //         tempColor.a = 1f;
-    //         wordImage.color = tempColor;
-    //         wordImage.sprite = lizardSprite;
-    //     }
-    //     //Donkey
-    //     else if (wordPanel01LetterCount == 6 && wordPanel1.transform.GetChild(0).gameObject.name == "D" && wordPanel1.transform.GetChild(1).gameObject.name == "O" && wordPanel1.transform.GetChild(2).gameObject.name == "N" && wordPanel1.transform.GetChild(3).gameObject.name == "K" && wordPanel1.transform.GetChild(4).gameObject.name == "E" && wordPanel1.transform.GetChild(5).gameObject.name == "Y")
-    //     {
-    //         var tempColor = wordImage.color;
-    //         tempColor.a = 1f;
-    //         wordImage.color = tempColor;
-    //         wordImage.sprite = donkeySprite;
-    //     }
-    //     //Monkey
-    //     else if (wordPanel01LetterCount == 6 && wordPanel1.transform.GetChild(0).gameObject.name == "M" && wordPanel1.transform.GetChild(1).gameObject.name == "O" && wordPanel1.transform.GetChild(2).gameObject.name == "N" && wordPanel1.transform.GetChild(3).gameObject.name == "K" && wordPanel1.transform.GetChild(4).gameObject.name == "E" && wordPanel1.transform.GetChild(5).gameObject.name == "Y")
-    //     {
-    //         var tempColor = wordImage.color;
-    //         tempColor.a = 1f;
-    //         wordImage.color = tempColor;
-    //         wordImage.sprite = monkeySprite;
-    //     }
-    //     else
-    //     {
-    //         var tempColor = wordImage.color;
-    //         tempColor.a = 0f;
-    //         wordImage.color = tempColor;
-    //     }
-    // }
 }
