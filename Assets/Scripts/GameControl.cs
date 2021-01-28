@@ -15,16 +15,11 @@ public class GameControl : MonoBehaviour
     List<Transform> Row2 = new List<Transform>();
     List<Transform> Row3 = new List<Transform>();
     List<List<Transform>> Rows = new List<List<Transform>>();
-    public bool cat, dog, bear;
-
-    List<string> Words = new List<string>();
     List<Sprite> WordSprites = new List<Sprite>();
-    int numberWords;
 
 
-
-    public Image centerWordImage, leftWordImage, rightWordImage;
-    public Sprite catSprite, dogSprite, bearSprite, frogSprite, goatSprite, duckSprite, snakeSprite, mouseSprite, horseSprite, tigerSprite, zebraSprite, lizardSprite, donkeySprite, monkeySprite;
+    public Image centerWordImage, leftWordImage, rightWordImage, backgroundWordImage;
+    public Sprite catSprite, dogSprite, bearSprite, frogSprite, goatSprite, duckSprite, snakeSprite, mouseSprite, horseSprite, tigerSprite, zebraSprite, lizardSprite, donkeySprite, monkeySprite, forestSprite;
 
 
     void Start()
@@ -32,6 +27,7 @@ public class GameControl : MonoBehaviour
         centerWordImage.preserveAspect = true;
         leftWordImage.preserveAspect = true;
         rightWordImage.preserveAspect = true;
+        backgroundWordImage.preserveAspect = false;
 
         Col1.Add(A4);
         Col1.Add(A5);
@@ -94,91 +90,256 @@ public class GameControl : MonoBehaviour
 
     void Update()
     {
-        //CAT
-        //Row 1
-        if ((Row1.Contains(C.parent) && Row1.Contains(A.parent) && Row1.Contains(T.parent) &&
-        Row1[Row1.IndexOf(C.parent) + 1].GetChild(0).gameObject.name == "A" &&
-        Row1[Row1.IndexOf(C.parent) + 2].GetChild(0).gameObject.name == "T")
-             ||
-            //Row 2
-            (Row2.Contains(C.parent) && Row2.Contains(A.parent) && Row2.Contains(T.parent) &&
-             Row2[Row2.IndexOf(C.parent) + 1].GetChild(0).gameObject.name == "A" &&
-             Row2[Row2.IndexOf(C.parent) + 2].GetChild(0).gameObject.name == "T")
-             ||
-             //Row 3
-             (Row3.Contains(C.parent) && Row3.Contains(A.parent) && Row3.Contains(T.parent) &&
-             Row3[Row3.IndexOf(C.parent) + 1].GetChild(0).gameObject.name == "A" &&
-             Row3[Row3.IndexOf(C.parent) + 2].GetChild(0).gameObject.name == "T"))
-        {
-            cat = true;
-            if (!Words.Contains("cat"))
-                Words.Add("cat");
 
-            if (!WordSprites.Contains(catSprite))
-                WordSprites.Add(catSprite);
-        }
-        else
+        // if there are blocks together
+        for (int h = 0; h < 3; h++)
         {
-            cat = false;
-            Words.Remove("cat");
-            WordSprites.Remove(catSprite);
+            for (int i = 0; i < Rows[h].Count; i++)
+            {
+                if (Rows[h][i].childCount > 0)
+                {
+                    if (Rows[h][i + 1].childCount > 0)
+                    {
+                        if (Rows[h][i + 2].childCount > 0)
+                        {
+                            if (Rows[h][i].GetChild(0).gameObject.name == "A")
+                            {
+
+                            }
+                            else if (Rows[h][i].GetChild(0).gameObject.name == "B")
+                            {
+
+                                if (Rows[h][i + 1].GetChild(0).gameObject.name == "E")
+                                {
+                                    if (Rows[h][i + 2].GetChild(0).gameObject.name == "A")
+                                    {
+                                        if (Rows[h][i + 3].childCount > 0 && Rows[h][i + 3].GetChild(0).gameObject.name == "R")
+                                        {
+                                            if (!WordSprites.Contains(bearSprite))
+                                                WordSprites.Add(bearSprite);
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            WordSprites.Remove(bearSprite);
+                                        }
+                                    }
+                                    else
+                                        WordSprites.Clear();
+                                }
+                                else
+                                    WordSprites.Clear();
+                            }
+
+                            else if (Rows[h][i].GetChild(0).gameObject.name == "C")
+                            {
+                                if (Rows[h][i + 1].GetChild(0).gameObject.name == "A")
+                                {
+                                    if (Rows[h][i + 2].GetChild(0).gameObject.name == "T")
+                                    {
+                                        if (!WordSprites.Contains(catSprite))
+                                            WordSprites.Add(catSprite);
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        WordSprites.Remove(catSprite);
+                                    }
+                                }
+
+                            }
+
+                            else if (Rows[h][i].GetChild(0).gameObject.name == "D")
+                            {
+                                if (Rows[h][i + 1].GetChild(0).gameObject.name == "O")
+                                {
+                                    if (Rows[h][i + 2].GetChild(0).gameObject.name == "G")
+                                    {
+                                        if (!WordSprites.Contains(dogSprite))
+                                            WordSprites.Add(dogSprite);
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        WordSprites.Remove(dogSprite);
+                                    }
+                                }
+                            }
+                        }
+                        else
+                            WordSprites.Clear();
+
+                    }
+                    else
+                        WordSprites.Clear();
+
+                }
+
+            }
         }
+
+
+        // what is first block?
+
+
+
+
+
+        //WORDS --------------
+        //CAT
+        // for (int i = 0; i < 3; i++)
+        // {
+        //     if ((Rows[i].Contains(C.parent) && Rows[i].Contains(A.parent) && Rows[i].Contains(T.parent) &&
+        //     Rows[i][Rows[i].IndexOf(C.parent) + 1].GetChild(0).gameObject.name == "A" &&
+        //      Rows[i][Rows[i].IndexOf(C.parent) + 2].GetChild(0).gameObject.name == "T"))
+        //     {
+        //         if (!WordSprites.Contains(catSprite))
+        //             WordSprites.Add(catSprite);
+        //         break;
+        //     }
+        //     else
+        //     {
+        //         WordSprites.Remove(catSprite);
+        //     }
+        // }
 
         //DOG
-        //Row 1
-        if ((Row1.Contains(D.parent) && Row1.Contains(O.parent) && Row1.Contains(G.parent) &&
-        Row1[Row1.IndexOf(D.parent) + 1].GetChild(0).gameObject.name == "O" &&
-        Row1[Row1.IndexOf(D.parent) + 2].GetChild(0).gameObject.name == "G")
-             ||
-            //Row 2
-            (Row2.Contains(D.parent) && Row2.Contains(O.parent) && Row2.Contains(G.parent) &&
-             Row2[Row2.IndexOf(D.parent) + 1].GetChild(0).gameObject.name == "O" &&
-             Row2[Row2.IndexOf(D.parent) + 2].GetChild(0).gameObject.name == "G")
-             ||
-             //Row 3
-             (Row3.Contains(D.parent) && Row3.Contains(O.parent) && Row3.Contains(G.parent) &&
-             Row3[Row3.IndexOf(D.parent) + 1].GetChild(0).gameObject.name == "O" &&
-             Row3[Row3.IndexOf(D.parent) + 2].GetChild(0).gameObject.name == "G"))
-        {
-            dog = true;
-            if (!Words.Contains("dog"))
-            {
-                Words.Add("dog");
-            }
-            if (!WordSprites.Contains(dogSprite))
-                WordSprites.Add(dogSprite);
-        }
-        else
-        {
-            dog = false;
-            Words.Remove("dog");
-            WordSprites.Remove(dogSprite);
-        }
+        // for (int i = 0; i < 3; i++)
+        // {
+        //     if ((Rows[i].Contains(D.parent) && Rows[i].Contains(O.parent) && Rows[i].Contains(G.parent) &&
+        //     Rows[i][Rows[i].IndexOf(D.parent) + 1].GetChild(0).gameObject.name == "O" &&
+        //      Rows[i][Rows[i].IndexOf(D.parent) + 2].GetChild(0).gameObject.name == "G"))
+        //     {
+        //         if (!WordSprites.Contains(dogSprite))
+        //             WordSprites.Add(dogSprite);
+        //         break;
+        //     }
+        //     else
+        //     {
+        //         WordSprites.Remove(dogSprite);
+        //     }
+        // }
 
         //BEAR
-        for (int i = 0; i < 3; i++)
-        {
-            if ((Rows[i].Contains(B.parent) && Rows[i].Contains(E.parent) && Rows[i].Contains(A.parent) && Rows[i].Contains(R.parent) &&
-            Rows[i][Rows[i].IndexOf(B.parent) + 1].GetChild(0).gameObject.name == "E" &&
-             Rows[i][Rows[i].IndexOf(B.parent) + 2].GetChild(0).gameObject.name == "A" &&
-            Rows[i][Rows[i].IndexOf(B.parent) + 3].GetChild(0).gameObject.name == "R"))
-            {
-                bear = true;
-                if (!Words.Contains("bear"))
-                    Words.Add("bear");
+        // for (int i = 0; i < 3; i++)
+        // {
+        //     if ((Rows[i].Contains(B.parent) && Rows[i].Contains(E.parent) && Rows[i].Contains(A.parent) && Rows[i].Contains(R.parent) &&
+        //     Rows[i][Rows[i].IndexOf(B.parent) + 1].GetChild(0).gameObject.name == "E" &&
+        //      Rows[i][Rows[i].IndexOf(B.parent) + 2].GetChild(0).gameObject.name == "A" &&
+        //     Rows[i][Rows[i].IndexOf(B.parent) + 3].GetChild(0).gameObject.name == "R"))
+        //     {
+        //         if (!WordSprites.Contains(bearSprite))
+        //             WordSprites.Add(bearSprite);
+        //         break;
+        //     }
+        //     else
+        //     {
+        //         WordSprites.Remove(bearSprite);
+        //     }
+        // }
 
-                if (!WordSprites.Contains(bearSprite))
-                    WordSprites.Add(bearSprite);
+        //FROG
+        // for (int i = 0; i < 3; i++)
+        // {
+        //     if ((Rows[i].Contains(F.parent) && Rows[i].Contains(R.parent) && Rows[i].Contains(O.parent) && Rows[i].Contains(G.parent) &&
+        //     Rows[i][Rows[i].IndexOf(F.parent) + 1].GetChild(0).gameObject.name == "R" &&
+        //      Rows[i][Rows[i].IndexOf(F.parent) + 2].GetChild(0).gameObject.name == "O" &&
+        //     Rows[i][Rows[i].IndexOf(F.parent) + 3].GetChild(0).gameObject.name == "G"))
+        //     {
+        //         if (!WordSprites.Contains(frogSprite))
+        //             WordSprites.Add(frogSprite);
+        //         break;
+        //     }
+        //     else
+        //     {
+        //         WordSprites.Remove(frogSprite);
+        //     }
+        // }
 
-                break;
-            }
-            else
-            {
-                bear = false;
-                Words.Remove("bear");
-                WordSprites.Remove(bearSprite);
-            }
-        }
+        // //DUCK
+        // for (int i = 0; i < 3; i++)
+        // {
+        //     if ((Rows[i].Contains(D.parent) && Rows[i].Contains(U.parent) && Rows[i].Contains(C.parent) && Rows[i].Contains(K.parent) &&
+        //     Rows[i][Rows[i].IndexOf(D.parent) + 1].GetChild(0).gameObject.name == "U" &&
+        //      Rows[i][Rows[i].IndexOf(D.parent) + 2].GetChild(0).gameObject.name == "C" &&
+        //     Rows[i][Rows[i].IndexOf(D.parent) + 3].GetChild(0).gameObject.name == "K"))
+        //     {
+        //         if (!WordSprites.Contains(duckSprite))
+        //             WordSprites.Add(duckSprite);
+        //         break;
+        //     }
+        //     else
+        //     {
+        //         WordSprites.Remove(duckSprite);
+        //     }
+        // }
+
+        // //DONKEY
+        // for (int i = 0; i < 3; i++)
+        // {
+        //     if ((Rows[i].Contains(D.parent) && Rows[i].Contains(O.parent) && Rows[i].Contains(N.parent) && Rows[i].Contains(K.parent) && Rows[i].Contains(E.parent) && Rows[i].Contains(Y.parent) &&
+        //     Rows[i][Rows[i].IndexOf(D.parent) + 1].GetChild(0).gameObject.name == "O" &&
+        //      Rows[i][Rows[i].IndexOf(D.parent) + 2].GetChild(0).gameObject.name == "N" &&
+        //     Rows[i][Rows[i].IndexOf(D.parent) + 3].GetChild(0).gameObject.name == "K" &&
+        //     Rows[i][Rows[i].IndexOf(D.parent) + 4].GetChild(0).gameObject.name == "E" &&
+        //     Rows[i][Rows[i].IndexOf(D.parent) + 5].GetChild(0).gameObject.name == "Y"))
+        //     {
+        //         if (!WordSprites.Contains(donkeySprite))
+        //             WordSprites.Add(donkeySprite);
+        //         break;
+        //     }
+        //     else
+        //     {
+        //         WordSprites.Remove(donkeySprite);
+        //     }
+        // }
+
+        // //TIGER
+        // for (int i = 0; i < 3; i++)
+        // {
+        //     if ((Rows[i].Contains(D.parent) && Rows[i].Contains(O.parent) && Rows[i].Contains(N.parent) && Rows[i].Contains(K.parent) && Rows[i].Contains(E.parent) && Rows[i].Contains(Y.parent) &&
+        //     Rows[i][Rows[i].IndexOf(D.parent) + 1].GetChild(0).gameObject.name == "O" &&
+        //      Rows[i][Rows[i].IndexOf(D.parent) + 2].GetChild(0).gameObject.name == "N" &&
+        //     Rows[i][Rows[i].IndexOf(D.parent) + 3].GetChild(0).gameObject.name == "K" &&
+        //     Rows[i][Rows[i].IndexOf(D.parent) + 4].GetChild(0).gameObject.name == "E" &&
+        //     Rows[i][Rows[i].IndexOf(D.parent) + 5].GetChild(0).gameObject.name == "Y"))
+        //     {
+        //         if (!WordSprites.Contains(donkeySprite))
+        //             WordSprites.Add(donkeySprite);
+        //         break;
+        //     }
+        //     else
+        //     {
+        //         WordSprites.Remove(donkeySprite);
+        //     }
+        // }
+
+
+        // //FOREST
+        // for (int i = 0; i < 3; i++)
+        // {
+        //     if ((Rows[i].Contains(F.parent) && Rows[i].Contains(O.parent) && Rows[i].Contains(R.parent) && Rows[i].Contains(E.parent) && Rows[i].Contains(S.parent) && Rows[i].Contains(T.parent) &&
+        //     Rows[i][Rows[i].IndexOf(F.parent) + 1].GetChild(0).gameObject.name == "O" &&
+        //      Rows[i][Rows[i].IndexOf(F.parent) + 2].GetChild(0).gameObject.name == "R" &&
+        //     Rows[i][Rows[i].IndexOf(F.parent) + 3].GetChild(0).gameObject.name == "E" &&
+        //     Rows[i][Rows[i].IndexOf(F.parent) + 4].GetChild(0).gameObject.name == "S" &&
+        //     Rows[i][Rows[i].IndexOf(F.parent) + 5].GetChild(0).gameObject.name == "T"))
+        //     {
+        //         var tempColor = backgroundWordImage.color;
+        //         tempColor.a = 1f;
+        //         backgroundWordImage.color = tempColor;
+        //         backgroundWordImage.sprite = forestSprite;
+        //         break;
+        //     }
+        //     else
+        //     {
+        //         var tempColor = backgroundWordImage.color;
+        //         tempColor.a = 0f;
+        //         backgroundWordImage.color = tempColor;
+        //     }
+        // }
+
+
 
 
         //RULES ----------------       
@@ -188,18 +349,22 @@ public class GameControl : MonoBehaviour
             ClearImage(centerWordImage);
             AddImage(leftWordImage, WordSprites[0]);
             AddImage(rightWordImage, WordSprites[1]);
+            // ClearImage(backgroundWordImage);
         }
         else if (WordSprites.Count == 1)
         {
+            print("test");
             ClearImage(leftWordImage);
             ClearImage(rightWordImage);
             AddImage(centerWordImage, WordSprites[0]);
+            // ClearImage(backgroundWordImage);
         }
         else
         {
             ClearImage(centerWordImage);
             ClearImage(leftWordImage);
             ClearImage(rightWordImage);
+            // ClearImage(backgroundWordImage);
         }
     }
 }
