@@ -1215,6 +1215,7 @@ MonoBehaviour:
   lizardSprite: {fileID: 21300000, guid: fc2d636b3395e92abb060d4a86ce1d89, type: 3}
   donkeySprite: {fileID: 21300000, guid: 4e1ceed1c7fa28f4b939dae2f4d1bdec, type: 3}
   monkeySprite: {fileID: 0}
+  wolfSprite: {fileID: 21300000, guid: 3853fc3e41bb233428c37e146ee5e86b, type: 3}
   forestSprite: {fileID: 21300000, guid: da882ee5031b53ff2a78746d392589ce, type: 3}
 --- !u!1 &684399462
 GameObject:

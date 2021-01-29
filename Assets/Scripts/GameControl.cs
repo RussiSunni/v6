@@ -19,7 +19,7 @@ public class GameControl : MonoBehaviour
 
 
     public Image centerWordImage, leftWordImage, rightWordImage, backgroundWordImage;
-    public Sprite catSprite, dogSprite, bearSprite, frogSprite, goatSprite, duckSprite, snakeSprite, mouseSprite, horseSprite, tigerSprite, zebraSprite, lizardSprite, donkeySprite, monkeySprite, forestSprite;
+    public Sprite catSprite, dogSprite, bearSprite, frogSprite, goatSprite, duckSprite, snakeSprite, mouseSprite, horseSprite, tigerSprite, zebraSprite, lizardSprite, donkeySprite, monkeySprite, wolfSprite, forestSprite;
 
 
     void Start()
@@ -148,7 +148,7 @@ public class GameControl : MonoBehaviour
                                 }
 
                             }
-
+                            // D -------------------------------------
                             else if (Rows[h][i].GetChild(0).gameObject.name == "D")
                             {
                                 if (Rows[h][i + 1].GetChild(0).gameObject.name == "O")
@@ -163,18 +163,312 @@ public class GameControl : MonoBehaviour
                                     {
                                         WordSprites.Remove(dogSprite);
                                     }
+                                    if (Rows[h][i + 1].GetChild(0).gameObject.name == "O")
+                                    {
+                                        if (Rows[h][i + 2].GetChild(0).gameObject.name == "N")
+                                        {
+                                            if (Rows[h][i + 3].childCount > 0 && Rows[h][i + 3].GetChild(0).gameObject.name == "K")
+                                            {
+                                                if (Rows[h][i + 4].childCount > 0 && Rows[h][i + 4].GetChild(0).gameObject.name == "E")
+                                                {
+                                                    if (Rows[h][i + 5].childCount > 0 && Rows[h][i + 5].GetChild(0).gameObject.name == "Y")
+                                                    {
+                                                        if (!WordSprites.Contains(donkeySprite))
+                                                            WordSprites.Add(donkeySprite);
+                                                        break;
+                                                    }
+                                                    else
+                                                    {
+                                                        WordSprites.Remove(donkeySprite);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                if (Rows[h][i + 1].GetChild(0).gameObject.name == "U")
+                                {
+                                    if (Rows[h][i + 2].GetChild(0).gameObject.name == "C")
+                                    {
+                                        if (Rows[h][i + 3].childCount > 0 && Rows[h][i + 3].GetChild(0).gameObject.name == "K")
+                                        {
+                                            if (!WordSprites.Contains(duckSprite))
+                                                WordSprites.Add(duckSprite);
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            WordSprites.Remove(duckSprite);
+                                        }
+                                    }
                                 }
                             }
+                            //F ----------------------------------
+                            else if (Rows[h][i].GetChild(0).gameObject.name == "F")
+                            {
+                                if (Rows[h][i + 1].GetChild(0).gameObject.name == "O")
+                                {
+                                    if (Rows[h][i + 2].GetChild(0).gameObject.name == "R")
+                                    {
+                                        if (Rows[h][i + 3].childCount > 0 && Rows[h][i + 3].GetChild(0).gameObject.name == "E")
+                                        {
+                                            if (Rows[h][i + 4].childCount > 0 && Rows[h][i + 4].GetChild(0).gameObject.name == "S")
+                                            {
+                                                if (Rows[h][i + 5].childCount > 0 && Rows[h][i + 5].GetChild(0).gameObject.name == "T")
+                                                {
+                                                    var tempColor = backgroundWordImage.color;
+                                                    tempColor.a = 1f;
+                                                    backgroundWordImage.color = tempColor;
+                                                    backgroundWordImage.sprite = forestSprite;
+                                                    break;
+                                                }
+                                                else
+                                                {
+                                                    var tempColor = backgroundWordImage.color;
+                                                    tempColor.a = 0f;
+                                                    backgroundWordImage.color = tempColor;
+                                                }
+                                            }
+                                        }
+                                    }
+                                    else
+                                        WordSprites.Clear();
+                                }
+                                else
+                                    WordSprites.Clear();
+
+                                if (Rows[h][i + 1].GetChild(0).gameObject.name == "R")
+                                {
+                                    if (Rows[h][i + 2].GetChild(0).gameObject.name == "O")
+                                    {
+                                        if (Rows[h][i + 3].childCount > 0 && Rows[h][i + 3].GetChild(0).gameObject.name == "G")
+                                        {
+                                            if (!WordSprites.Contains(frogSprite))
+                                                WordSprites.Add(frogSprite);
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            WordSprites.Remove(frogSprite);
+                                        }
+                                    }
+                                    else
+                                        WordSprites.Clear();
+                                }
+                                else
+                                    WordSprites.Clear();
+                            }
+
+                            // G ----------------------------------
+                            else if (Rows[h][i].GetChild(0).gameObject.name == "G")
+                            {
+                                if (Rows[h][i + 1].GetChild(0).gameObject.name == "O")
+                                {
+                                    if (Rows[h][i + 2].GetChild(0).gameObject.name == "A")
+                                    {
+                                        if (Rows[h][i + 3].childCount > 0 && Rows[h][i + 3].GetChild(0).gameObject.name == "T")
+                                        {
+                                            if (!WordSprites.Contains(goatSprite))
+                                                WordSprites.Add(goatSprite);
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            WordSprites.Remove(goatSprite);
+                                        }
+                                    }
+                                }
+                            }
+
+                            // L ----------------------------------
+                            else if (Rows[h][i].GetChild(0).gameObject.name == "L")
+                            {
+                                if (Rows[h][i + 1].childCount > 0 && Rows[h][i + 1].GetChild(0).gameObject.name == "I")
+                                {
+                                    if (Rows[h][i + 2].childCount > 0 && Rows[h][i + 2].GetChild(0).gameObject.name == "Z")
+                                    {
+                                        if (Rows[h][i + 3].childCount > 0 && Rows[h][i + 3].GetChild(0).gameObject.name == "A")
+                                        {
+                                            if (Rows[h][i + 4].childCount > 0 && Rows[h][i + 4].GetChild(0).gameObject.name == "R")
+                                            {
+                                                if (Rows[h][i + 5].childCount > 0 && Rows[h][i + 5].GetChild(0).gameObject.name == "D")
+                                                {
+                                                    if (!WordSprites.Contains(lizardSprite))
+                                                        WordSprites.Add(lizardSprite);
+                                                    break;
+                                                }
+                                            }
+                                            else
+                                            {
+                                                WordSprites.Remove(lizardSprite);
+                                            }
+                                        }
+                                        else
+                                            WordSprites.Clear();
+                                    }
+                                    else
+                                        WordSprites.Clear();
+                                }
+                                else
+                                    WordSprites.Clear();
+                            }
+
+
+                            // M -----------------------------------------                       
+                            else if (Rows[h][i].GetChild(0).gameObject.name == "M")
+                            {
+                                if (Rows[h][i + 1].childCount > 0 && Rows[h][i + 1].GetChild(0).gameObject.name == "O")
+                                {
+                                    if (Rows[h][i + 2].childCount > 0 && Rows[h][i + 2].GetChild(0).gameObject.name == "U")
+                                    {
+                                        if (Rows[h][i + 3].childCount > 0 && Rows[h][i + 3].GetChild(0).gameObject.name == "S")
+                                        {
+                                            if (Rows[h][i + 4].childCount > 0 && Rows[h][i + 4].GetChild(0).gameObject.name == "E")
+                                            {
+                                                if (!WordSprites.Contains(mouseSprite))
+                                                    WordSprites.Add(mouseSprite);
+                                                break;
+                                            }
+                                            else
+                                            {
+                                                WordSprites.Remove(mouseSprite);
+                                            }
+                                        }
+                                        else
+                                            WordSprites.Clear();
+                                    }
+                                    else
+                                        WordSprites.Clear();
+                                }
+                                else
+                                    WordSprites.Clear();
+                            }
+
+
+                            // S -----------------------------------------                       
+                            else if (Rows[h][i].GetChild(0).gameObject.name == "S")
+                            {
+                                if (Rows[h][i + 1].childCount > 0 && Rows[h][i + 1].GetChild(0).gameObject.name == "N")
+                                {
+                                    if (Rows[h][i + 2].childCount > 0 && Rows[h][i + 2].GetChild(0).gameObject.name == "A")
+                                    {
+                                        if (Rows[h][i + 3].childCount > 0 && Rows[h][i + 3].GetChild(0).gameObject.name == "K")
+                                        {
+                                            if (Rows[h][i + 4].childCount > 0 && Rows[h][i + 4].GetChild(0).gameObject.name == "E")
+                                            {
+                                                if (!WordSprites.Contains(snakeSprite))
+                                                    WordSprites.Add(snakeSprite);
+                                                break;
+                                            }
+                                            else
+                                            {
+                                                WordSprites.Remove(snakeSprite);
+                                            }
+                                        }
+                                        else
+                                            WordSprites.Clear();
+                                    }
+                                    else
+                                        WordSprites.Clear();
+                                }
+                                else
+                                    WordSprites.Clear();
+                            }
+
+
+                            // T ----------------------------------
+                            else if (Rows[h][i].GetChild(0).gameObject.name == "T")
+                            {
+                                if (Rows[h][i + 1].childCount > 0 && Rows[h][i + 1].GetChild(0).gameObject.name == "I")
+                                {
+                                    if (Rows[h][i + 2].childCount > 0 && Rows[h][i + 2].GetChild(0).gameObject.name == "G")
+                                    {
+                                        if (Rows[h][i + 3].childCount > 0 && Rows[h][i + 3].GetChild(0).gameObject.name == "E")
+                                        {
+                                            if (Rows[h][i + 4].childCount > 0 && Rows[h][i + 4].GetChild(0).gameObject.name == "R")
+                                            {
+                                                if (!WordSprites.Contains(tigerSprite))
+                                                    WordSprites.Add(tigerSprite);
+                                                break;
+                                            }
+                                            else
+                                            {
+                                                WordSprites.Remove(tigerSprite);
+                                            }
+                                        }
+                                        else
+                                            WordSprites.Clear();
+                                    }
+                                    else
+                                        WordSprites.Clear();
+                                }
+                                else
+                                    WordSprites.Clear();
+                            }
+
+                            // W ----------------------
+                            else if (Rows[h][i].GetChild(0).gameObject.name == "W")
+                            {
+                                if (Rows[h][i + 1].GetChild(0).gameObject.name == "O")
+                                {
+                                    if (Rows[h][i + 2].GetChild(0).gameObject.name == "L")
+                                    {
+                                        if (Rows[h][i + 3].childCount > 0 && Rows[h][i + 3].GetChild(0).gameObject.name == "F")
+                                        {
+                                            if (!WordSprites.Contains(wolfSprite))
+                                                WordSprites.Add(wolfSprite);
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            WordSprites.Remove(wolfSprite);
+                                        }
+                                    }
+                                }
+                            }
+
+                            // Z -----------------------
+                            else if (Rows[h][i].GetChild(0).gameObject.name == "Z")
+                            {
+                                if (Rows[h][i + 1].childCount > 0 && Rows[h][i + 1].GetChild(0).gameObject.name == "E")
+                                {
+                                    if (Rows[h][i + 2].childCount > 0 && Rows[h][i + 2].GetChild(0).gameObject.name == "B")
+                                    {
+                                        if (Rows[h][i + 3].childCount > 0 && Rows[h][i + 3].GetChild(0).gameObject.name == "R")
+                                        {
+                                            if (Rows[h][i + 4].childCount > 0 && Rows[h][i + 4].GetChild(0).gameObject.name == "A")
+                                            {
+                                                if (!WordSprites.Contains(zebraSprite))
+                                                    WordSprites.Add(zebraSprite);
+                                                break;
+                                            }
+                                            else
+                                            {
+                                                WordSprites.Remove(zebraSprite);
+                                            }
+                                        }
+                                        else
+                                            WordSprites.Clear();
+                                    }
+                                    else
+                                        WordSprites.Clear();
+                                }
+                                else
+                                    WordSprites.Clear();
+                            }
+
+
+
+
+                            else
+                                WordSprites.Clear();
                         }
                         else
                             WordSprites.Clear();
-
                     }
                     else
                         WordSprites.Clear();
-
                 }
-
             }
         }
 
