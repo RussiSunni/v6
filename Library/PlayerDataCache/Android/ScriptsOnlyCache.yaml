@@ -6,8 +6,6 @@ ScriptsOnlyBuild:
     - GameControl
     Unity.2D.Tilemap.Editor.dll:
     - UnityEditor.Tilemaps.GridPaintingState
-    - UnityEditor.Tilemaps.GridPaletteBrushes
-    - UnityEditor.Tilemaps.GridPalettes
     - UnityEditor.Tilemaps.SceneViewGridManager
     - UnityEditor.Tilemaps.TileDragAndDropManager
     Unity.Rider.Editor.dll:
@@ -385,7 +383,7 @@ ScriptsOnlyBuild:
     className: TimelineAsset
   - hash:
       serializedVersion: 2
-      Hash: 8716a052ed80d2b3d39951a41a17dcfc
+      Hash: 028f3cd69bea1dce5e5c622dd2619d7e
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GameControl

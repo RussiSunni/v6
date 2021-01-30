@@ -38,6 +38,7 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\DraggableBlock.cs" />
      <Compile Include="Assets\Scripts\DropPanel.cs" />
+     <Compile Include="Assets\Scripts\Fairy.cs" />
      <Compile Include="Assets\Scripts\GameControl.cs" />
     <Reference Include="UnityEngine">
         <HintPath>/home/jonathan/Work/Ecomap/App/Unity/2019.3.3f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>

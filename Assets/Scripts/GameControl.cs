@@ -19,8 +19,8 @@ public class GameControl : MonoBehaviour
 
 
     public Image centerWordImage, leftWordImage, rightWordImage, backgroundWordImage;
-    public Sprite catSprite, dogSprite, bearSprite, frogSprite, goatSprite, duckSprite, snakeSprite, mouseSprite, horseSprite, tigerSprite, zebraSprite, lizardSprite, donkeySprite, monkeySprite, wolfSprite, forestSprite;
-
+    public Sprite catSprite, dogSprite, bearSprite, frogSprite, goatSprite, duckSprite, snakeSprite, mouseSprite, horseSprite, tigerSprite, zebraSprite, lizardSprite, donkeySprite, monkeySprite, wolfSprite, batSprite, camelSprite, chickenSprite, dolphinSprite, sharkSprite, forestSprite;
+    public Sprite motherSprite, sisterSprite, familySprite;
 
     void Start()
     {
@@ -106,9 +106,23 @@ public class GameControl : MonoBehaviour
                             {
 
                             }
+
+                            // B ------------------------------
                             else if (Rows[h][i].GetChild(0).gameObject.name == "B")
                             {
-
+                                if (Rows[h][i + 1].GetChild(0).gameObject.name == "A")
+                                {
+                                    if (Rows[h][i + 2].GetChild(0).gameObject.name == "T")
+                                    {
+                                        if (!WordSprites.Contains(batSprite))
+                                            WordSprites.Add(batSprite);
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        WordSprites.Remove(batSprite);
+                                    }
+                                }
                                 if (Rows[h][i + 1].GetChild(0).gameObject.name == "E")
                                 {
                                     if (Rows[h][i + 2].GetChild(0).gameObject.name == "A")
@@ -130,12 +144,28 @@ public class GameControl : MonoBehaviour
                                 else
                                     WordSprites.Clear();
                             }
-
+                            // C ---------------------------------------
                             else if (Rows[h][i].GetChild(0).gameObject.name == "C")
                             {
                                 if (Rows[h][i + 1].GetChild(0).gameObject.name == "A")
                                 {
-                                    if (Rows[h][i + 2].GetChild(0).gameObject.name == "T")
+                                    if (Rows[h][i + 2].GetChild(0).gameObject.name == "M")
+                                    {
+                                        if (Rows[h][i + 3].childCount > 0 && Rows[h][i + 3].GetChild(0).gameObject.name == "E")
+                                        {
+                                            if (Rows[h][i + 4].childCount > 0 && Rows[h][i + 4].GetChild(0).gameObject.name == "L")
+                                            {
+                                                if (!WordSprites.Contains(camelSprite))
+                                                    WordSprites.Add(camelSprite);
+                                                break;
+                                            }
+                                            else
+                                            {
+                                                WordSprites.Remove(camelSprite);
+                                            }
+                                        }
+                                    }
+                                    else if (Rows[h][i + 2].GetChild(0).gameObject.name == "T")
                                     {
                                         if (!WordSprites.Contains(catSprite))
                                             WordSprites.Add(catSprite);
@@ -144,6 +174,31 @@ public class GameControl : MonoBehaviour
                                     else
                                     {
                                         WordSprites.Remove(catSprite);
+                                    }
+                                }
+                                else if (Rows[h][i + 1].GetChild(0).gameObject.name == "H")
+                                {
+                                    if (Rows[h][i + 2].GetChild(0).gameObject.name == "I")
+                                    {
+                                        if (Rows[h][i + 3].GetChild(0).gameObject.name == "C")
+                                        {
+                                            if (Rows[h][i + 4].GetChild(0).gameObject.name == "K")
+                                            {
+                                                if (Rows[h][i + 5].GetChild(0).gameObject.name == "E")
+                                                {
+                                                    if (Rows[h][i + 6].GetChild(0).gameObject.name == "N")
+                                                    {
+                                                        if (!WordSprites.Contains(chickenSprite))
+                                                            WordSprites.Add(chickenSprite);
+                                                        break;
+                                                    }
+                                                    else
+                                                    {
+                                                        WordSprites.Remove(chickenSprite);
+                                                    }
+                                                }
+                                            }
+                                        }
                                     }
                                 }
 
@@ -165,6 +220,28 @@ public class GameControl : MonoBehaviour
                                     }
                                     if (Rows[h][i + 1].GetChild(0).gameObject.name == "O")
                                     {
+                                        if (Rows[h][i + 2].childCount > 0 && Rows[h][i + 2].GetChild(0).gameObject.name == "L")
+                                        {
+                                            if (Rows[h][i + 3].childCount > 0 && Rows[h][i + 3].GetChild(0).gameObject.name == "P")
+                                            {
+                                                if (Rows[h][i + 4].childCount > 0 && Rows[h][i + 4].GetChild(0).gameObject.name == "H")
+                                                {
+                                                    if (Rows[h][i + 5].childCount > 0 && Rows[h][i + 5].GetChild(0).gameObject.name == "I")
+                                                    {
+                                                        if (Rows[h][i + 6].childCount > 0 && Rows[h][i + 6].GetChild(0).gameObject.name == "N")
+                                                        {
+                                                            if (!WordSprites.Contains(dolphinSprite))
+                                                                WordSprites.Add(dolphinSprite);
+                                                            break;
+                                                        }
+                                                        else
+                                                        {
+                                                            WordSprites.Remove(dolphinSprite);
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
                                         if (Rows[h][i + 2].GetChild(0).gameObject.name == "N")
                                         {
                                             if (Rows[h][i + 3].childCount > 0 && Rows[h][i + 3].GetChild(0).gameObject.name == "K")
@@ -203,9 +280,32 @@ public class GameControl : MonoBehaviour
                                     }
                                 }
                             }
+
                             //F ----------------------------------
                             else if (Rows[h][i].GetChild(0).gameObject.name == "F")
                             {
+                                if (Rows[h][i + 1].GetChild(0).gameObject.name == "A")
+                                {
+                                    if (Rows[h][i + 2].childCount > 0 && Rows[h][i + 2].GetChild(0).gameObject.name == "M")
+                                    {
+                                        if (Rows[h][i + 3].childCount > 0 && Rows[h][i + 3].GetChild(0).gameObject.name == "I")
+                                        {
+                                            if (Rows[h][i + 4].childCount > 0 && Rows[h][i + 4].GetChild(0).gameObject.name == "L")
+                                            {
+                                                if (Rows[h][i + 5].childCount > 0 && Rows[h][i + 5].GetChild(0).gameObject.name == "Y")
+                                                {
+                                                    if (!WordSprites.Contains(familySprite))
+                                                        WordSprites.Add(familySprite);
+                                                    break;
+                                                }
+                                                else
+                                                {
+                                                    WordSprites.Remove(familySprite);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
                                 if (Rows[h][i + 1].GetChild(0).gameObject.name == "O")
                                 {
                                     if (Rows[h][i + 2].GetChild(0).gameObject.name == "R")
@@ -280,6 +380,37 @@ public class GameControl : MonoBehaviour
                                 }
                             }
 
+                            // H ----------------------------------
+                            else if (Rows[h][i].GetChild(0).gameObject.name == "H")
+                            {
+                                if (Rows[h][i + 1].childCount > 0 && Rows[h][i + 1].GetChild(0).gameObject.name == "O")
+                                {
+                                    if (Rows[h][i + 2].childCount > 0 && Rows[h][i + 2].GetChild(0).gameObject.name == "R")
+                                    {
+                                        if (Rows[h][i + 3].childCount > 0 && Rows[h][i + 3].GetChild(0).gameObject.name == "S")
+                                        {
+                                            if (Rows[h][i + 4].childCount > 0 && Rows[h][i + 4].GetChild(0).gameObject.name == "E")
+                                            {
+                                                if (!WordSprites.Contains(horseSprite))
+                                                    WordSprites.Add(horseSprite);
+                                                break;
+                                            }
+                                            else
+                                            {
+                                                WordSprites.Remove(horseSprite);
+                                            }
+                                        }
+                                        else
+                                            WordSprites.Clear();
+                                    }
+                                    else
+                                        WordSprites.Clear();
+                                }
+                                else
+                                    WordSprites.Clear();
+                            }
+
+
                             // L ----------------------------------
                             else if (Rows[h][i].GetChild(0).gameObject.name == "L")
                             {
@@ -319,6 +450,25 @@ public class GameControl : MonoBehaviour
                             {
                                 if (Rows[h][i + 1].childCount > 0 && Rows[h][i + 1].GetChild(0).gameObject.name == "O")
                                 {
+                                    if (Rows[h][i + 2].childCount > 0 && Rows[h][i + 2].GetChild(0).gameObject.name == "T")
+                                    {
+                                        if (Rows[h][i + 3].childCount > 0 && Rows[h][i + 3].GetChild(0).gameObject.name == "H")
+                                        {
+                                            if (Rows[h][i + 4].childCount > 0 && Rows[h][i + 4].GetChild(0).gameObject.name == "E")
+                                            {
+                                                if (Rows[h][i + 5].childCount > 0 && Rows[h][i + 5].GetChild(0).gameObject.name == "R")
+                                                {
+                                                    if (!WordSprites.Contains(motherSprite))
+                                                        WordSprites.Add(motherSprite);
+                                                    break;
+                                                }
+                                                else
+                                                {
+                                                    WordSprites.Remove(motherSprite);
+                                                }
+                                            }
+                                        }
+                                    }
                                     if (Rows[h][i + 2].childCount > 0 && Rows[h][i + 2].GetChild(0).gameObject.name == "U")
                                     {
                                         if (Rows[h][i + 3].childCount > 0 && Rows[h][i + 3].GetChild(0).gameObject.name == "S")
@@ -348,6 +498,47 @@ public class GameControl : MonoBehaviour
                             // S -----------------------------------------                       
                             else if (Rows[h][i].GetChild(0).gameObject.name == "S")
                             {
+                                if (Rows[h][i + 1].childCount > 0 && Rows[h][i + 1].GetChild(0).gameObject.name == "H")
+                                {
+                                    if (Rows[h][i + 2].childCount > 0 && Rows[h][i + 2].GetChild(0).gameObject.name == "A")
+                                    {
+                                        if (Rows[h][i + 3].childCount > 0 && Rows[h][i + 3].GetChild(0).gameObject.name == "R")
+                                        {
+                                            if (Rows[h][i + 4].childCount > 0 && Rows[h][i + 4].GetChild(0).gameObject.name == "K")
+                                            {
+                                                if (!WordSprites.Contains(sharkSprite))
+                                                    WordSprites.Add(sharkSprite);
+                                                break;
+                                            }
+                                            else
+                                            {
+                                                WordSprites.Remove(sharkSprite);
+                                            }
+                                        }
+                                    }
+                                }
+                                if (Rows[h][i + 1].childCount > 0 && Rows[h][i + 1].GetChild(0).gameObject.name == "I")
+                                {
+                                    if (Rows[h][i + 2].childCount > 0 && Rows[h][i + 2].GetChild(0).gameObject.name == "S")
+                                    {
+                                        if (Rows[h][i + 3].childCount > 0 && Rows[h][i + 3].GetChild(0).gameObject.name == "T")
+                                        {
+                                            if (Rows[h][i + 4].childCount > 0 && Rows[h][i + 4].GetChild(0).gameObject.name == "E")
+                                            {
+                                                if (Rows[h][i + 5].childCount > 0 && Rows[h][i + 5].GetChild(0).gameObject.name == "R")
+                                                {
+                                                    if (!WordSprites.Contains(sisterSprite))
+                                                        WordSprites.Add(sisterSprite);
+                                                    break;
+                                                }
+                                                else
+                                                {
+                                                    WordSprites.Remove(sisterSprite);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
                                 if (Rows[h][i + 1].childCount > 0 && Rows[h][i + 1].GetChild(0).gameObject.name == "N")
                                 {
                                     if (Rows[h][i + 2].childCount > 0 && Rows[h][i + 2].GetChild(0).gameObject.name == "A")
