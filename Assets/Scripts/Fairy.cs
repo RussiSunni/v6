@@ -5,13 +5,18 @@ using UnityEngine.UI;
 
 public class Fairy : MonoBehaviour
 {
-    public static Animator animator;
+    //public Animator animator;
+
+    private void Start()
+    {
+        // animator.SetBool("isJump", false);
+
+        //    animator.SetBool("isHi", false);
+    }
 
     private void Update()
     {
-        animator.SetBool("isJump", false);
 
-        animator.SetBool("isHi", false);
     }
 
 }

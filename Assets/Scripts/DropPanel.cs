@@ -95,58 +95,15 @@ public class DropPanel : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoi
             d.parentToReturnTo = this.transform;
         }
 
-        StartCoroutine((RegisterWord()));
+        //   StartCoroutine((RegisterWord()));
     }
 
-    IEnumerator RegisterWord()
-    {
-        GameObject gameControl = GameObject.Find("GameControl");
-        GameControl gameControlScript = gameControl.GetComponent<GameControl>();
+    // IEnumerator RegisterWord()
+    // {
+    //     yield return new WaitForSeconds(0.1f);
 
-        yield return new WaitForSeconds(0.1f);
-
-
-
-        if (d.name == "C")
-        {
-            //print(d.parentToReturnTo.name);
-        }
-
-
-
-        // CAT
-        // for (int h = 0; h < 8; h++)
-        // {
-        //     for (int i = 0; i < 3; i++)
-        //     {
-        //         if (columns[h][i].childCount > 0 && columns[h][i].GetChild(0).gameObject.name == "C")
-        //         {
-        //             if (columns[h + 1][i].childCount > 0 && columns[h + 1][i].GetChild(0).gameObject.name == "A")
-        //             {
-        //                 if (columns[h + 2][i].childCount > 0 && columns[h + 2][i].GetChild(0).gameObject.name == "T")
-        //                 {
-        //                     var tempColor = gameControlScript.wordImage.color;
-        //                     tempColor.a = 1f;
-        //                     gameControlScript.wordImage.color = tempColor;
-        //                     gameControlScript.wordImage.sprite = gameControlScript.catSprite;
-        //                 }
-        //                 else
-        //                 {
-        //                     var tempColor = gameControlScript.wordImage.color;
-        //                     tempColor.a = 0f;
-        //                     gameControlScript.wordImage.color = tempColor;
-        //                 }
-        //             }
-        //             else
-        //             {
-        //                 var tempColor = gameControlScript.wordImage.color;
-        //                 tempColor.a = 0f;
-        //                 gameControlScript.wordImage.color = tempColor;
-        //             }
-        //         }
-        //     }
-        // }
-
-
-    }
+    //     GameObject gameControl = GameObject.Find("GameControl");
+    //     GameControl gameControlScript = gameControl.GetComponent<GameControl>();
+    //     gameControlScript.UpdateStage();
+    // }
 }

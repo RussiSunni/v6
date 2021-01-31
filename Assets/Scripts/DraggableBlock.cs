@@ -19,7 +19,13 @@ public class DraggableBlock : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
         placeholderParent = parentToReturnTo;
         this.transform.SetParent(this.transform.parent.parent);
 
+        //  print(this.name);
+        RectTransform rt = this.GetComponent<RectTransform>();
+        rt.sizeDelta = new Vector2(90, 90);
+
         GetComponent<CanvasGroup>().blocksRaycasts = false;
+
+        StartCoroutine((RegisterWord()));
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -36,5 +42,17 @@ public class DraggableBlock : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
         GetComponent<CanvasGroup>().blocksRaycasts = true;
 
         // Destroy(placeholder);
+
+        StartCoroutine((RegisterWord()));
+    }
+
+
+    IEnumerator RegisterWord()
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        GameObject gameControl = GameObject.Find("GameControl");
+        GameControl gameControlScript = gameControl.GetComponent<GameControl>();
+        gameControlScript.UpdateStage();
     }
 }
