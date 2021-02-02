@@ -19,6 +19,10 @@ public class GameControl : MonoBehaviour
 
     List<string> Words = new List<string>();
 
+    List<string> currentWords = new List<string>();
+
+    string word;
+    char[] board;
 
     public Image centerWordImage, leftWordImage, rightWordImage, backgroundWordImage;
     public Sprite catSprite, dogSprite, bearSprite, frogSprite, goatSprite, duckSprite, snakeSprite, mouseSprite, horseSprite, tigerSprite, zebraSprite, lizardSprite, donkeySprite, monkeySprite, wolfSprite, batSprite, camelSprite, chickenSprite, dolphinSprite, sharkSprite, forestSprite;
@@ -75,6 +79,15 @@ public class GameControl : MonoBehaviour
         Rows.Add(Row1);
         Rows.Add(Row2);
         Rows.Add(Row3);
+
+
+
+        word = "COG";
+
+        Words.Add("CAT");
+        Words.Add("DOG");
+
+        // Search(board, word);
     }
 
     private void ClearImage(Image image)
@@ -95,138 +108,192 @@ public class GameControl : MonoBehaviour
     // void Update()
     public void UpdateStage()
     {
-        // for (int h = 0; h < 3; h++)
-        //  {
+        char[] board = new char[8];
 
-
-        Words.Clear();
-        for (int i = 0; i < Row1.Count; i++)
+        for (int i = 0; i < 8; i++)
         {
-            // checking if first letters have been removed
             if (Row1[i].childCount > 0)
             {
-                Words.Add(Row1[i].GetChild(0).gameObject.name);
+
+                board[i] = Row1[i].GetChild(0).gameObject.name[0];
+
+                // print(board[i]);
             }
-
-            // B ------------------------------
-            // Bat ------------------------------
-
-            // C ---------------------------------------
-            if (Row1[i].childCount > 0 && Row1[i].GetChild(0).gameObject.name == "C")
-            {
-                if (Row1[i + 1].childCount > 0 && Row1[i + 1].GetChild(0).gameObject.name == "A")
-                {
-                    // Cat ------------------------------
-                    if (Row1[i + 2].childCount > 0 && Row1[i + 2].GetChild(0).gameObject.name == "T")
-                    {
-                        if (!WordSprites.Contains(catSprite))
-                        {
-                            WordSprites.Add(catSprite);
-                            continue;
-                        }
-                    }
-                    else
-                    {
-                        if (WordSprites.Contains(catSprite))
-                        {
-                            WordSprites.Remove(catSprite);
-                            continue;
-                        }
-                    }
-                }
-                else
-                {
-                    if (WordSprites.Contains(catSprite))
-                    {
-                        WordSprites.Remove(catSprite);
-                        continue;
-                    }
-                }
-            }
-            else
-            {
-                // if none of them are c
-                if (!Words.Contains("C"))
-                {
-                    WordSprites.Remove(catSprite);
-                }
-            }
-
-
-
-            // D -------------------------------------
-            // Dog ------------------------------
-            if (Row1[i].childCount > 0 && Row1[i].GetChild(0).gameObject.name == "D")
-            {
-
-                if (Row1[i + 1].childCount > 0 && Row1[i + 1].GetChild(0).gameObject.name == "O")
-                {
-                    if (Row1[i + 2].childCount > 0 && Row1[i + 2].GetChild(0).gameObject.name == "G")
-                    {
-                        if (!WordSprites.Contains(dogSprite))
-                        {
-                            WordSprites.Add(dogSprite);
-                            continue;
-                        }
-                    }
-                    else
-                    {
-                        if (WordSprites.Contains(dogSprite))
-                        {
-                            WordSprites.Remove(dogSprite);
-                            continue;
-                        }
-                    }
-                }
-                else
-                {
-                    if (WordSprites.Contains(dogSprite))
-                    {
-                        WordSprites.Remove(dogSprite);
-                        continue;
-                    }
-                }
-            }
-            else
-            {
-                // if none of them are d
-                if (!Words.Contains("D"))
-                {
-                    WordSprites.Remove(dogSprite);
-
-                }
-            }
-
-
-
-
         }
 
-        print(WordSprites.Count);
+        Search(board, Words);
+
+        print(currentWords[0]);
+        print(currentWords[1]);
+        // int words = 0;
+        // for (int h = 0; h < 3; h++)
+        // {
+
+        //     // got to move to the loop with all 3 rows
 
 
-        //RULES ----------------       
+        //     int firstLetterOfWordPosition;
 
-        if (WordSprites.Count > 1)
-        {
-            ClearImage(centerWordImage);
-            AddImage(leftWordImage, WordSprites[0]);
-            AddImage(rightWordImage, WordSprites[1]);
-            // ClearImage(backgroundWordImage);
-        }
-        else if (WordSprites.Count == 1)
-        {
-            ClearImage(leftWordImage);
-            ClearImage(rightWordImage);
-            AddImage(centerWordImage, WordSprites[0]);
-            // ClearImage(backgroundWordImage);
-        }
-        else
-        {
-            ClearImage(centerWordImage);
-            ClearImage(leftWordImage);
-            ClearImage(rightWordImage);
-            // ClearImage(backgroundWordImage);
-        }
+        //     Words.Clear();
+        //     for (int i = 0; i < Rows[h].Count; i++)
+        //     {
+
+        //         if (Rows[h][i].childCount > 0 && Rows[h][i + 1].childCount > 0)
+        //             if (Rows[h][i - 1].childCount == 0)
+        //             {
+        //                 for (int j = 0; j < 8; j++)
+        //                 {
+        //                     if (Rows[h][i + j].childCount == 0)
+        //                     {
+        //                         int wordLength = j - i;
+        //                         //  print(j);
+        //                     }
+        //                 }
+        //             }
+
+
+
+
+
+        //         // check how many words there are
+        //         // loop each word separately !!
+        //         if (Rows[h][i].childCount > 0 && Rows[h][i + 1].childCount > 0 && Rows[h][i + 2].childCount > 0)
+        //         {
+        //             // number of words
+        //             words++;
+        //             firstLetterOfWordPosition = i;
+
+        //             for (int k = 0; k < words; k++)
+        //             {
+
+        //                 if (Rows[h][firstLetterOfWordPosition].GetChild(0).gameObject.name == "C")
+        //                 {
+        //                     if (Rows[h][firstLetterOfWordPosition + 1].GetChild(0).gameObject.name == "A")
+        //                     {
+
+        //                         // CAT ---------------------
+        //                         if (Rows[h][firstLetterOfWordPosition + 2].GetChild(0).gameObject.name == "T")
+        //                         {
+        //                             if (!WordSprites.Contains(catSprite))
+        //                             {
+        //                                 WordSprites.Add(catSprite);
+        //                             }
+        //                         }
+
+        //                     }
+
+        //                 }
+
+
+        //                 // DOG ---------------------
+        //                 if (Rows[h][firstLetterOfWordPosition].GetChild(0).gameObject.name == "D")
+        //                 {
+        //                     if (Rows[h][firstLetterOfWordPosition + 1].GetChild(0).gameObject.name == "O")
+        //                     {
+        //                         if (Rows[h][firstLetterOfWordPosition + 2].GetChild(0).gameObject.name == "G")
+        //                         {
+        //                             if (!WordSprites.Contains(dogSprite))
+        //                             {
+        //                                 WordSprites.Add(dogSprite);
+        //                             }
+        //                         }
+
+        //                     }
+
+        //                 }
+
+
+        //                 // FROG ---------------------
+
+        //             }
+        //         }
+        //         if (words == 0)
+        //             WordSprites.Clear();
+
+
+
+
+
+
+
+
+
+
+
+        //         // checking if first letters have been removed
+        //         if (Rows[h][i].childCount > 0)
+        //         {
+        //             Words.Add(Rows[h][i].GetChild(0).gameObject.name);
+        //         }
+        //     }
+        // }
+
+
+
+        // //RULES ----------------       
+
+        // if (WordSprites.Count > 1)
+        // {
+        //     ClearImage(centerWordImage);
+        //     AddImage(leftWordImage, WordSprites[0]);
+        //     AddImage(rightWordImage, WordSprites[1]);
+        //     // ClearImage(backgroundWordImage);
+        // }
+        // else if (WordSprites.Count == 1)
+        // {
+        //     ClearImage(leftWordImage);
+        //     ClearImage(rightWordImage);
+        //     AddImage(centerWordImage, WordSprites[0]);
+        //     // ClearImage(backgroundWordImage);
+        // }
+        // else
+        // {
+        //     ClearImage(centerWordImage);
+        //     ClearImage(leftWordImage);
+        //     ClearImage(rightWordImage);
+        //     // ClearImage(backgroundWordImage);
+        // }
     }
+
+
+
+    private bool Search(char[] board, List<string> words)
+    {
+        for (int h = 0; h < 2; h++)
+        {
+            for (int i = 0; i < board.Length; i++)
+            {
+                if (board[i] == words[h][0] && dfs(board, i, 0, words[h]))
+                {
+                    return true;
+                }
+
+            }
+        }
+        return false;
+    }
+
+    public bool dfs(char[] board, int i, int count, string word)
+    {
+        if (count == word.Length)
+            return true;
+
+        if (i < 0 || i >= board.Length || board[i] != word[count])
+            return false;
+
+
+        char temp = board[i];
+        board[i] = ' ';
+
+        bool found = dfs(board, i + 1, count + 1, word);
+
+        board[i] = temp;
+
+        if (found)
+            currentWords.Add(word);
+
+        print(found);
+        return found;
+    }
+
 }
