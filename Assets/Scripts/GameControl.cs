@@ -259,22 +259,24 @@ public class GameControl : MonoBehaviour
 
     private bool Search(char[] board, List<string> words)
     {
-        for (int h = 0; h < 2; h++)
+        for (int i = 0; i < board.Length; i++)
         {
-            for (int i = 0; i < board.Length; i++)
+            for (int h = 0; h < 2; h++)
             {
                 if (board[i] == words[h][0] && dfs(board, i, 0, words[h]))
                 {
-                    return true;
+                    //print(words[h]);
                 }
-
             }
         }
+
         return false;
     }
 
     public bool dfs(char[] board, int i, int count, string word)
     {
+        //print(word);
+
         if (count == word.Length)
             return true;
 
@@ -289,10 +291,12 @@ public class GameControl : MonoBehaviour
 
         board[i] = temp;
 
-        if (found)
+        if (found && !currentWords.Contains(word))
+        {
             currentWords.Add(word);
+        }
 
-        print(found);
+
         return found;
     }
 
