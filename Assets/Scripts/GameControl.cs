@@ -15,7 +15,7 @@ public class GameControl : MonoBehaviour
     List<Transform> Row2 = new List<Transform>();
     List<Transform> Row3 = new List<Transform>();
     List<List<Transform>> Rows = new List<List<Transform>>();
-    List<Sprite> WordSprites = new List<Sprite>();
+    List<Sprite> wordSprites = new List<Sprite>();
 
     List<string> Words = new List<string>();
 
@@ -29,6 +29,8 @@ public class GameControl : MonoBehaviour
     public Sprite motherSprite, sisterSprite, familySprite;
 
     public Animator fairyAnimator;
+
+    IDictionary<string, Sprite> wordImages = new Dictionary<string, Sprite>();
 
     void Start()
     {
@@ -81,13 +83,18 @@ public class GameControl : MonoBehaviour
         Rows.Add(Row3);
 
 
-
-        word = "COG";
-
+        //Words
         Words.Add("CAT");
         Words.Add("DOG");
+        Words.Add("BEAR");
 
-        // Search(board, word);
+
+        //Dictionary Results
+        wordImages.Add("CAT", catSprite);
+        wordImages.Add("DOG", dogSprite);
+        wordImages.Add("BEAR", bearSprite);
+
+
     }
 
     private void ClearImage(Image image)
@@ -108,160 +115,95 @@ public class GameControl : MonoBehaviour
     // void Update()
     public void UpdateStage()
     {
-        char[] board = new char[8];
+        print(wordImages["BEAR"]);
 
+        // load current board
+
+        // Row 1
+        char[] board1 = new char[8];
         for (int i = 0; i < 8; i++)
         {
             if (Row1[i].childCount > 0)
             {
-
-                board[i] = Row1[i].GetChild(0).gameObject.name[0];
-
-                // print(board[i]);
+                board1[i] = Row1[i].GetChild(0).gameObject.name[0];
             }
         }
 
-        Search(board, Words);
+        // Row 2
+        char[] board2 = new char[8];
+        for (int i = 0; i < 8; i++)
+        {
+            if (Row2[i].childCount > 0)
+            {
+                board2[i] = Row2[i].GetChild(0).gameObject.name[0];
+            }
+        }
 
-        print(currentWords[0]);
-        print(currentWords[1]);
-        // int words = 0;
-        // for (int h = 0; h < 3; h++)
-        // {
-
-        //     // got to move to the loop with all 3 rows
-
-
-        //     int firstLetterOfWordPosition;
-
-        //     Words.Clear();
-        //     for (int i = 0; i < Rows[h].Count; i++)
-        //     {
-
-        //         if (Rows[h][i].childCount > 0 && Rows[h][i + 1].childCount > 0)
-        //             if (Rows[h][i - 1].childCount == 0)
-        //             {
-        //                 for (int j = 0; j < 8; j++)
-        //                 {
-        //                     if (Rows[h][i + j].childCount == 0)
-        //                     {
-        //                         int wordLength = j - i;
-        //                         //  print(j);
-        //                     }
-        //                 }
-        //             }
+        // Row 3
+        char[] board3 = new char[8];
+        for (int i = 0; i < 8; i++)
+        {
+            if (Row3[i].childCount > 0)
+            {
+                board3[i] = Row3[i].GetChild(0).gameObject.name[0];
+            }
+        }
 
 
 
+        // run the function
+        Search(board1, Words);
+        Search(board2, Words);
+        Search(board3, Words);
 
 
-        //         // check how many words there are
-        //         // loop each word separately !!
-        //         if (Rows[h][i].childCount > 0 && Rows[h][i + 1].childCount > 0 && Rows[h][i + 2].childCount > 0)
-        //         {
-        //             // number of words
-        //             words++;
-        //             firstLetterOfWordPosition = i;
-
-        //             for (int k = 0; k < words; k++)
-        //             {
-
-        //                 if (Rows[h][firstLetterOfWordPosition].GetChild(0).gameObject.name == "C")
-        //                 {
-        //                     if (Rows[h][firstLetterOfWordPosition + 1].GetChild(0).gameObject.name == "A")
-        //                     {
-
-        //                         // CAT ---------------------
-        //                         if (Rows[h][firstLetterOfWordPosition + 2].GetChild(0).gameObject.name == "T")
-        //                         {
-        //                             if (!WordSprites.Contains(catSprite))
-        //                             {
-        //                                 WordSprites.Add(catSprite);
-        //                             }
-        //                         }
-
-        //                     }
-
-        //                 }
-
-
-        //                 // DOG ---------------------
-        //                 if (Rows[h][firstLetterOfWordPosition].GetChild(0).gameObject.name == "D")
-        //                 {
-        //                     if (Rows[h][firstLetterOfWordPosition + 1].GetChild(0).gameObject.name == "O")
-        //                     {
-        //                         if (Rows[h][firstLetterOfWordPosition + 2].GetChild(0).gameObject.name == "G")
-        //                         {
-        //                             if (!WordSprites.Contains(dogSprite))
-        //                             {
-        //                                 WordSprites.Add(dogSprite);
-        //                             }
-        //                         }
-
-        //                     }
-
-        //                 }
-
-
-        //                 // FROG ---------------------
-
-        //             }
-        //         }
-        //         if (words == 0)
-        //             WordSprites.Clear();
-
-
-
-
-
-
-
-
-
-
-
-        //         // checking if first letters have been removed
-        //         if (Rows[h][i].childCount > 0)
-        //         {
-        //             Words.Add(Rows[h][i].GetChild(0).gameObject.name);
-        //         }
-        //     }
-        // }
+        // for this string in Current Words, use this
+        for (int i = 0; i < currentWords.Count; i++)
+        {
+            if (!wordSprites.Contains(wordImages[currentWords[i]]))
+                wordSprites.Add(wordImages[currentWords[i]]);
+        }
 
 
 
         // //RULES ----------------       
 
-        // if (WordSprites.Count > 1)
-        // {
-        //     ClearImage(centerWordImage);
-        //     AddImage(leftWordImage, WordSprites[0]);
-        //     AddImage(rightWordImage, WordSprites[1]);
-        //     // ClearImage(backgroundWordImage);
-        // }
-        // else if (WordSprites.Count == 1)
-        // {
-        //     ClearImage(leftWordImage);
-        //     ClearImage(rightWordImage);
-        //     AddImage(centerWordImage, WordSprites[0]);
-        //     // ClearImage(backgroundWordImage);
-        // }
-        // else
-        // {
-        //     ClearImage(centerWordImage);
-        //     ClearImage(leftWordImage);
-        //     ClearImage(rightWordImage);
-        //     // ClearImage(backgroundWordImage);
-        // }
+        if (currentWords.Count > 1)
+        {
+            ClearImage(centerWordImage);
+            AddImage(leftWordImage, wordSprites[0]);
+            AddImage(rightWordImage, wordSprites[1]);
+            // ClearImage(backgroundWordImage);
+        }
+        else if (currentWords.Count == 1)
+        {
+            ClearImage(leftWordImage);
+            ClearImage(rightWordImage);
+
+            AddImage(centerWordImage, wordSprites[0]);
+            // ClearImage(backgroundWordImage);
+        }
+        else
+        {
+            ClearImage(centerWordImage);
+            ClearImage(leftWordImage);
+            ClearImage(rightWordImage);
+            // ClearImage(backgroundWordImage);
+        }
+
+        // clear for next update
+        wordSprites.Clear();
+        currentWords.Clear();
     }
 
 
 
     private bool Search(char[] board, List<string> words)
     {
+
         for (int i = 0; i < board.Length; i++)
         {
-            for (int h = 0; h < 2; h++)
+            for (int h = 0; h < words.Count; h++)
             {
                 if (board[i] == words[h][0] && dfs(board, i, 0, words[h]))
                 {
@@ -275,7 +217,7 @@ public class GameControl : MonoBehaviour
 
     public bool dfs(char[] board, int i, int count, string word)
     {
-        //print(word);
+        //    print(word);
 
         if (count == word.Length)
             return true;
@@ -299,5 +241,4 @@ public class GameControl : MonoBehaviour
 
         return found;
     }
-
 }

@@ -40,6 +40,7 @@
      <Compile Include="Assets\Scripts\DropPanel.cs" />
      <Compile Include="Assets\Scripts\Fairy.cs" />
      <Compile Include="Assets\Scripts\GameControl.cs" />
+     <Compile Include="Assets\Scripts\WordImage.cs" />
      <Compile Include="Assets\Scripts\WordSearch.cs" />
     <Reference Include="UnityEngine">
         <HintPath>/home/jonathan/Work/Ecomap/App/Unity/2019.3.3f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
