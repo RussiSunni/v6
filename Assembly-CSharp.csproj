@@ -40,6 +40,10 @@
      <Compile Include="Assets\Scripts\DropPanel.cs" />
      <Compile Include="Assets\Scripts\Fairy.cs" />
      <Compile Include="Assets\Scripts\GameControl.cs" />
+     <Compile Include="Assets\Scripts\SQLite\DataService.cs" />
+     <Compile Include="Assets\Scripts\SQLite\DictionaryLookup.cs" />
+     <Compile Include="Assets\Scripts\SQLite\ExistingDBScript.cs" />
+     <Compile Include="Assets\Scripts\SQLite\SQLite.cs" />
      <Compile Include="Assets\Scripts\WordImage.cs" />
      <Compile Include="Assets\Scripts\WordSearch.cs" />
     <Reference Include="UnityEngine">

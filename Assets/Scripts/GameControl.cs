@@ -83,18 +83,55 @@ public class GameControl : MonoBehaviour
         Rows.Add(Row3);
 
 
+        // database design
+        // one table. fields for 
+        // ID
+        // -isFairy
+        // -sprite
+        // -word
+        // -combos?
+
+
         //Words
         Words.Add("CAT");
         Words.Add("DOG");
         Words.Add("BEAR");
-
+        Words.Add("FROG");
+        Words.Add("MOUSE");
+        Words.Add("HORSE");
+        Words.Add("BAT");
+        Words.Add("DUCK");
+        Words.Add("SNAKE");
+        Words.Add("CAMEL");
+        Words.Add("DOLPHIN");
+        Words.Add("DONKEY");
+        Words.Add("GOAT");
+        Words.Add("LIZARD");
+        Words.Add("SHARK");
+        Words.Add("TIGER");
+        Words.Add("WOLF");
+        Words.Add("ZEBRA");
 
         //Dictionary Results
         wordImages.Add("CAT", catSprite);
         wordImages.Add("DOG", dogSprite);
         wordImages.Add("BEAR", bearSprite);
+        wordImages.Add("FROG", frogSprite);
+        wordImages.Add("MOUSE", mouseSprite);
+        wordImages.Add("HORSE", horseSprite);
+        wordImages.Add("BAT", batSprite);
+        wordImages.Add("DUCK", duckSprite);
+        wordImages.Add("SNAKE", snakeSprite);
+        wordImages.Add("CAMEL", camelSprite);
 
-
+        wordImages.Add("DOLPHIN", dolphinSprite);
+        wordImages.Add("DONKEY", donkeySprite);
+        wordImages.Add("GOAT", goatSprite);
+        wordImages.Add("LIZARD", lizardSprite);
+        wordImages.Add("SHARK", sharkSprite);
+        wordImages.Add("TIGER", tigerSprite);
+        wordImages.Add("WOLF", wolfSprite);
+        wordImages.Add("ZEBRA", zebraSprite);
     }
 
     private void ClearImage(Image image)
@@ -115,8 +152,6 @@ public class GameControl : MonoBehaviour
     // void Update()
     public void UpdateStage()
     {
-        print(wordImages["BEAR"]);
-
         // load current board
 
         // Row 1
