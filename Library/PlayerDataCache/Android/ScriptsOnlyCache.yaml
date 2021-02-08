@@ -82,6 +82,10 @@ ScriptsOnlyBuild:
       Script: {instanceID: 13032}
     - Class: 114
       Script: {instanceID: 13208}
+    - Class: 114
+      Script: {instanceID: 25060}
+    - Class: 114
+      Script: {instanceID: 25122}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -421,7 +425,7 @@ ScriptsOnlyBuild:
     className: TimelineAsset
   - hash:
       serializedVersion: 2
-      Hash: aff6e6a1ce8089bb27bab8a0638969da
+      Hash: 98e93852f9b0b53dbb850ed2077e3fde
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GameControl
