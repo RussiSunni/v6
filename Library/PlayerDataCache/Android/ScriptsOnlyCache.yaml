@@ -14,6 +14,14 @@ ScriptsOnlyBuild:
     - UnityEditor.Tilemaps.TileDragAndDropManager
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
+    UnityEditor.Graphs.dll:
+    - UnityEditor.Graphs.AnimationBlendTree.Graph
+    - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
+    - UnityEditor.Graphs.AnimationStateMachine.Graph
+    - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.StateNode
+    - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
     - UnityEditor.TestTools.TestRunner.TestListCacheData
@@ -57,35 +65,35 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11174}
     - Class: 114
-      Script: {instanceID: 11356}
+      Script: {instanceID: 11354}
     - Class: 114
-      Script: {instanceID: 11398}
+      Script: {instanceID: 11396}
     - Class: 114
-      Script: {instanceID: 11452}
+      Script: {instanceID: 11450}
     - Class: 114
-      Script: {instanceID: 11520}
+      Script: {instanceID: 11518}
     - Class: 114
-      Script: {instanceID: 11592}
+      Script: {instanceID: 11590}
     - Class: 114
-      Script: {instanceID: 11828}
+      Script: {instanceID: 11826}
     - Class: 114
-      Script: {instanceID: 11892}
+      Script: {instanceID: 11890}
     - Class: 114
-      Script: {instanceID: 12140}
+      Script: {instanceID: 12136}
     - Class: 114
-      Script: {instanceID: 12278}
+      Script: {instanceID: 12274}
     - Class: 114
-      Script: {instanceID: 12628}
+      Script: {instanceID: 12624}
     - Class: 114
-      Script: {instanceID: 12818}
+      Script: {instanceID: 12814}
     - Class: 114
-      Script: {instanceID: 13032}
+      Script: {instanceID: 13028}
     - Class: 114
-      Script: {instanceID: 13208}
+      Script: {instanceID: 13204}
     - Class: 114
-      Script: {instanceID: 25060}
+      Script: {instanceID: 63708}
     - Class: 114
-      Script: {instanceID: 25122}
+      Script: {instanceID: 63770}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -239,7 +247,7 @@ ScriptsOnlyBuild:
     className: AspectRatioFitter
   - hash:
       serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+      Hash: 30f3213a6e218a461fa00e428f22d3eb
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Fairy
@@ -321,12 +329,6 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: ScrollRect
-  - hash:
-      serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: WordSearch
   - hash:
       serializedVersion: 2
       Hash: c3d3430df9e3ea95e3e3d587961390fb

@@ -16,9 +16,10 @@ public class GameControl : MonoBehaviour
     List<Transform> Row3 = new List<Transform>();
     List<List<Transform>> Rows = new List<List<Transform>>();
     List<Sprite> currentWordSprites = new List<Sprite>();
+    public static List<string> currentWordFairyAnimations = new List<string>();
     List<string> currentWords = new List<string>();
     IDictionary<string, Sprite> wordImages = new Dictionary<string, Sprite>();
-    public static IDictionary<string, string> dictionaryLookups = new Dictionary<string, string>();
+    public static List<DictionaryLookup> dictionaryLookupsList = new List<DictionaryLookup>();
 
     string word;
     char[] board;
@@ -90,10 +91,15 @@ public class GameControl : MonoBehaviour
         // -combos?
 
         // Load wordImages list from the database lookup table. Maybe remove this step sometime
-        foreach (var dictionaryLookup in dictionaryLookups)
-        {
-            wordImages.Add(dictionaryLookup.Key, Resources.Load<Sprite>("Images/Animals/" + dictionaryLookup.Value));
-        }
+        // foreach (var dictionaryLookup in dictionaryLookups)
+        // {
+        //     wordImages.Add(dictionaryLookup.Key, Resources.Load<Sprite>("Images/Animals/" + dictionaryLookup.Value));
+        // }
+
+        //   foreach (var dictionaryLookup in dictionaryLookupsList)
+        //  {
+        //      wordImages.Add(dictionaryLookup.Name, Resources.Load<Sprite>("Images/Animals/" + dictionaryLookup.Sprite));
+        //  }
 
         // testing word / image db
         // foreach (var dictionaryLookup in dictionaryLookups)
@@ -122,9 +128,18 @@ public class GameControl : MonoBehaviour
     // void Update()
     public void UpdateStage()
     {
+        var fairy = GameObject.Find("Fairy");
+        Fairy fairyScript = fairy.GetComponent<Fairy>();
+
+        // reset Fairy animation
+        fairyScript.NoAnimation();
+
         // currentWords = words that have been made
         // currentWordSprites = current sprites that should be showing on the stage
         // wordImages = the db of the dictionary, that is loaded into memory in this class
+
+
+        // maybe a list of objects. Include isFairy.
 
 
         // load current board
@@ -162,34 +177,54 @@ public class GameControl : MonoBehaviour
 
 
         // run the function
-        Search(board1, dictionaryLookups);
-        Search(board2, dictionaryLookups);
-        Search(board3, dictionaryLookups);
-
+        // Search(board1, dictionaryLookups);
+        Search(board1, dictionaryLookupsList);
+        //  Search(board2, dictionaryLookups);
+        Search(board2, dictionaryLookupsList);
+        //   Search(board3, dictionaryLookups);
+        Search(board3, dictionaryLookupsList);
 
         // for this string in Current Words, use this
         for (int i = 0; i < currentWords.Count; i++)
         {
-            if (!currentWordSprites.Contains(wordImages[currentWords[i]]))
-                currentWordSprites.Add(wordImages[currentWords[i]]);
+            // if (!currentWordSprites.Contains(wordImages[currentWords[i]]))
+            //     currentWordSprites.Add(wordImages[currentWords[i]]);
+
+            foreach (var lookup in dictionaryLookupsList)
+            {
+                if (currentWords[i] == lookup.Name)
+                {
+                    if (lookup.isFairy == false)
+                        currentWordSprites.Add(Resources.Load<Sprite>("Images/Animals/" + lookup.Sprite));
+                    else
+                    {
+                        currentWordFairyAnimations.Add(lookup.Sprite);
+                    }
+                }
+
+            }
+            //  print(currentWordSprites[i]);  //  fairyScript.NoAnimation();
+
+            // if (!currentWordSprites.Contains(wordImages[currentWords[i]]))
+            //   currentWordSprites.Add(wordImages[currentWords[i]]);
         }
 
 
 
-        // //RULES ----------------       
+        // //RULES ----------------     
 
-        if (currentWords.Count > 1)
+        if (currentWordSprites.Count > 1)
         {
             ClearImage(centerWordImage);
             AddImage(leftWordImage, currentWordSprites[0]);
             AddImage(rightWordImage, currentWordSprites[1]);
             // ClearImage(backgroundWordImage);
         }
-        else if (currentWords.Count == 1)
+        else if (currentWordSprites.Count == 1)
         {
+            print("word");
             ClearImage(leftWordImage);
             ClearImage(rightWordImage);
-
             AddImage(centerWordImage, currentWordSprites[0]);
             // ClearImage(backgroundWordImage);
         }
@@ -201,20 +236,44 @@ public class GameControl : MonoBehaviour
             // ClearImage(backgroundWordImage);
         }
 
+        if (currentWordFairyAnimations.Count == 1)
+        {
+            fairyScript.Animation(currentWordFairyAnimations[0]);
+        }
+
+
+
         // clear for next update
+        currentWordFairyAnimations.Clear();
+
         currentWordSprites.Clear();
         currentWords.Clear();
     }
 
 
-    private bool Search(char[] board, IDictionary<string, string> dictionaryLookups)
-    {
+    // private bool Search(char[] board, IDictionary<string, string> dictionaryLookups)
+    // {
+    //     for (int i = 0; i < board.Length; i++)
+    //     {
+    //         foreach (KeyValuePair<string, string> dictionaryLookup in dictionaryLookups)
+    //         {
+    //             if (board[i] == dictionaryLookup.Key[0] && dfs(board, i, 0, dictionaryLookup.Key))
+    //             {
+    //                 //print(words[h]);
+    //             }
+    //         }
+    //     }
+    //     return false;
+    // }
 
+
+    private bool Search(char[] board, List<DictionaryLookup> dictionaryLookupsList)
+    {
         for (int i = 0; i < board.Length; i++)
         {
-            foreach (KeyValuePair<string, string> dictionaryLookup in dictionaryLookups)
+            foreach (DictionaryLookup dictionaryLookup in dictionaryLookupsList)
             {
-                if (board[i] == dictionaryLookup.Key[0] && dfs(board, i, 0, dictionaryLookup.Key))
+                if (board[i] == dictionaryLookup.Name[0] && dfs(board, i, 0, dictionaryLookup.Name))
                 {
                     //print(words[h]);
                 }
@@ -227,21 +286,29 @@ public class GameControl : MonoBehaviour
 
 
 
-    // private bool Search(char[] board, List<string> words)
+    // public bool dfs(char[] board, int i, int count, string word)
     // {
+    //     //    print(word);
 
-    //     for (int i = 0; i < board.Length; i++)
+    //     if (count == word.Length)
+    //         return true;
+
+    //     if (i < 0 || i >= board.Length || board[i] != word[count])
+    //         return false;
+
+
+    //     char temp = board[i];
+    //     board[i] = ' ';
+
+    //     bool found = dfs(board, i + 1, count + 1, word);
+
+    //     board[i] = temp;
+
+    //     if (found && !currentWords.Contains(word))
     //     {
-    //         for (int h = 0; h < words.Count; h++)
-    //         {
-    //             if (board[i] == words[h][0] && dfs(board, i, 0, words[h]))
-    //             {
-    //                 //print(words[h]);
-    //             }
-    //         }
+    //         currentWords.Add(word);
     //     }
-
-    //     return false;
+    //     return found;
     // }
 
     public bool dfs(char[] board, int i, int count, string word)
@@ -270,6 +337,10 @@ public class GameControl : MonoBehaviour
 
         return found;
     }
+
+
+
+
 
 
     // optimise to a loop

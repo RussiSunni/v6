@@ -44,8 +44,6 @@
      <Compile Include="Assets\Scripts\SQLite\DictionaryLookup.cs" />
      <Compile Include="Assets\Scripts\SQLite\ExistingDBScript.cs" />
      <Compile Include="Assets\Scripts\SQLite\SQLite.cs" />
-     <Compile Include="Assets\Scripts\WordImage.cs" />
-     <Compile Include="Assets\Scripts\WordSearch.cs" />
     <Reference Include="UnityEngine">
         <HintPath>/home/jonathan/Work/Ecomap/App/Unity/2019.3.3f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>

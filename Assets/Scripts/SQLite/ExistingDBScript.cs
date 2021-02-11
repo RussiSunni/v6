@@ -20,7 +20,8 @@ public class ExistingDBScript : MonoBehaviour
         foreach (var dictionaryLookup in dictionaryLookups)
         {
             //  ToConsole(dictionaryLookup.ToString());
-            GameControl.dictionaryLookups.Add(dictionaryLookup.Name, dictionaryLookup.Sprite);
+            //GameControl.dictionaryLookups.Add(dictionaryLookup.Name, dictionaryLookup.Sprite);
+            GameControl.dictionaryLookupsList.Add(dictionaryLookup);
         }
     }
 

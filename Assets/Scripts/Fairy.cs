@@ -5,18 +5,30 @@ using UnityEngine.UI;
 
 public class Fairy : MonoBehaviour
 {
-    //public Animator animator;
+    public Animator animator;
 
     private void Start()
     {
-        // animator.SetBool("isJump", false);
-
-        //    animator.SetBool("isHi", false);
+        animator.SetBool("isJump", false);
+        animator.SetBool("isHi", false);
     }
 
-    private void Update()
+    public void NoAnimation()
     {
+        animator.SetBool("isJump", false);
+        animator.SetBool("isHi", false);
+    }
 
+    // public void WaveAnimation()
+    // {
+    //     animator.SetBool("isHi", true);
+    //     //        print("hi");
+    // }
+
+    public void Animation(string word)
+    {
+        animator.SetBool(word, true);
+        GameControl.currentWordFairyAnimations.Clear();
     }
 
 }
