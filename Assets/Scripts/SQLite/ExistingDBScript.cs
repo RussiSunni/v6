@@ -22,12 +22,15 @@ public class ExistingDBScript : MonoBehaviour
             //  ToConsole(dictionaryLookup.ToString());
             //GameControl.dictionaryLookups.Add(dictionaryLookup.Name, dictionaryLookup.Sprite);
             GameControl.dictionaryLookupsList.Add(dictionaryLookup);
+
+            ToConsole(dictionaryLookup.ToString());
+
         }
     }
 
-    // private void ToConsole(string msg)
-    // {
-    //     DebugText.text += System.Environment.NewLine + msg;
-    //     Debug.Log(msg);
-    // }
+    private void ToConsole(string msg)
+    {
+        DebugText.text += System.Environment.NewLine + msg;
+        Debug.Log(msg);
+    }
 }

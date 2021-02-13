@@ -1,11 +1,11 @@
 ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
-    - DraggableBlock
     - DropPanel
     - ExistingDBScript
     - Fairy
     - GameControl
+    - Swipe
     Unity.2D.Tilemap.Editor.dll:
     - UnityEditor.Tilemaps.GridPaintingState
     - UnityEditor.Tilemaps.GridPaletteBrushes
@@ -14,14 +14,6 @@ ScriptsOnlyBuild:
     - UnityEditor.Tilemaps.TileDragAndDropManager
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
-    UnityEditor.Graphs.dll:
-    - UnityEditor.Graphs.AnimationBlendTree.Graph
-    - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
-    - UnityEditor.Graphs.AnimationStateMachine.Graph
-    - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.StateNode
-    - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
     - UnityEditor.TestTools.TestRunner.TestListCacheData
@@ -91,9 +83,11 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 13204}
     - Class: 114
-      Script: {instanceID: 63708}
+      Script: {instanceID: 21818}
     - Class: 114
-      Script: {instanceID: 63770}
+      Script: {instanceID: 21880}
+    - Class: 114
+      Script: {instanceID: 40040}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -343,12 +337,6 @@ ScriptsOnlyBuild:
     className: TMP_SpriteAnimator
   - hash:
       serializedVersion: 2
-      Hash: ad302634ce2a9bd314555a7ae96f6210
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: DraggableBlock
-  - hash:
-      serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: UnityEngine.TestRunner.dll
     namespaceName: UnityEngine.TestTools.TestRunner.Callbacks
@@ -427,7 +415,7 @@ ScriptsOnlyBuild:
     className: TimelineAsset
   - hash:
       serializedVersion: 2
-      Hash: 98e93852f9b0b53dbb850ed2077e3fde
+      Hash: 0c108f8c8578b2fd357c2d568cbcdbb2
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GameControl
@@ -569,6 +557,18 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Swipe
+  - hash:
+      serializedVersion: 2
+      Hash: ad302634ce2a9bd314555a7ae96f6210
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: DraggableBlock
   platform: 13
   scenePathNames:
   - Assets/Scenes/Hub.unity

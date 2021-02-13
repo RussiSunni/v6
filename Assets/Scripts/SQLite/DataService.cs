@@ -20,7 +20,8 @@ public class DataService
         // check if file exists in Application.persistentDataPath
         var filepath = string.Format("{0}/{1}", Application.persistentDataPath, DatabaseName);
 
-        if (!File.Exists(filepath))
+        //if (!File.Exists(filepath))
+          if (!File.Exists(filepath) || File.Exists(filepath))
         {
             Debug.Log("Database not in Persistent path");
             // if it doesn't ->

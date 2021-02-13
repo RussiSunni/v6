@@ -11,9 +11,9 @@ public class GameControl : MonoBehaviour
     List<Transform> Col1 = new List<Transform>();
     List<Transform> Col2 = new List<Transform>();
     List<Transform> Col3 = new List<Transform>();
-    List<Transform> Row1 = new List<Transform>();
-    List<Transform> Row2 = new List<Transform>();
-    List<Transform> Row3 = new List<Transform>();
+    public List<Transform> Row1 = new List<Transform>();
+    public List<Transform> Row2 = new List<Transform>();
+    public List<Transform> Row3 = new List<Transform>();
     List<List<Transform>> Rows = new List<List<Transform>>();
     List<Sprite> currentWordSprites = new List<Sprite>();
     public static List<string> currentWordFairyAnimations = new List<string>();
@@ -80,6 +80,10 @@ public class GameControl : MonoBehaviour
         Rows.Add(Row1);
         Rows.Add(Row2);
         Rows.Add(Row3);
+
+        ClearImage(centerWordImage);
+        ClearImage(leftWordImage);
+        ClearImage(rightWordImage);
 
 
         // database design
