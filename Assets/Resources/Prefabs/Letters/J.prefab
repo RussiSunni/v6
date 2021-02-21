@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 4026123702457868670}
   - component: {fileID: 4026123702457868664}
   - component: {fileID: 4026123702457868665}
-  - component: {fileID: 4026123702457868613}
   - component: {fileID: 4026123702457868666}
   - component: {fileID: 4026123702457868667}
+  - component: {fileID: -8209927478166794641}
   m_Layer: 0
   m_Name: J
   m_TagString: Untagged
@@ -76,20 +76,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &4026123702457868613
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4026123702457868671}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3ab1583417bfcb71ad8f7cedb571eff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parentToReturnTo: {fileID: 0}
-  placeholderParent: {fileID: 0}
 --- !u!114 &4026123702457868666
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -122,3 +108,15 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &-8209927478166794641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4026123702457868671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f62470db346d21dab8ce3f4c6c4cff26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

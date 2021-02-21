@@ -12,6 +12,11 @@ public class Swipe : MonoBehaviour, IPointerDownHandler, IPointerUpHandler // re
     float swipeAngle = 0;
     Transform B4;
 
+    int currentRow;
+    int currentCol;
+    int rowIndex;
+    int colIndex;
+
     void Start()
     {
         block = this.gameObject;
@@ -46,38 +51,49 @@ public class Swipe : MonoBehaviour, IPointerDownHandler, IPointerUpHandler // re
         GameControl gameControlScript = gameControl.GetComponent<GameControl>();
         var parent = block.transform.parent;
 
-        if (gameControlScript.Row1.Contains(parent))
+        for (int i = 0; i < gameControlScript.Rows.Count; i++)
         {
-            var parentRow = gameControlScript.Row1;
-        }
-        else if (gameControlScript.Row2.Contains(parent))
-        {
-            var parentRow = gameControlScript.Row2;
+            if (gameControlScript.Rows[i].Contains(parent))
+            {
+                currentRow = i;
+                rowIndex = gameControlScript.Rows[i].IndexOf(parent);
+            }
         }
 
-        int parentIndex = gameControlScript.Row1.IndexOf(parent);
+        for (int i = 0; i < gameControlScript.Cols.Count; i++)
+        {
+            if (gameControlScript.Cols[i].Contains(parent))
+            {
+                currentCol = i;
+                colIndex = gameControlScript.Cols[i].IndexOf(parent);
+            }
+        }
+
 
         if (swipeAngle > -45 && swipeAngle <= 45)
         {
             //  Debug.Log("right");
-            var newParentIndex = parentIndex + 1;
-            this.transform.SetParent(gameControlScript.Row1[newParentIndex]);
+            var newRowIndex = rowIndex + 1;
+            this.transform.SetParent(gameControlScript.Rows[currentRow][newRowIndex]);
         }
         else if (swipeAngle > 45 && swipeAngle <= 135)
         {
-            Debug.Log("up");
+            //  Debug.Log("up");
+            var newColIndex = colIndex - 1;
+            this.transform.SetParent(gameControlScript.Cols[currentCol][newColIndex]);
         }
         else if (swipeAngle > 135 || swipeAngle <= -135)
         {
             //  Debug.Log("left");
-            var newParentIndex = parentIndex - 1;
-            this.transform.SetParent(gameControlScript.Row1[newParentIndex]);
+            var newRowIndex = rowIndex - 1;
+            this.transform.SetParent(gameControlScript.Rows[currentRow][newRowIndex]);
         }
         else if (swipeAngle < -45 && swipeAngle >= -135)
         {
-            Debug.Log("down");
+            //  Debug.Log("down");
+            var newColIndex = colIndex + 1;
+            this.transform.SetParent(gameControlScript.Cols[currentCol][newColIndex]);
 
-            // this.transform.SetParent(hand);
 
         }
         StartCoroutine((RegisterWord()));

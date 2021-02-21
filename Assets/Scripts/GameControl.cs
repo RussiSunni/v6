@@ -8,13 +8,19 @@ public class GameControl : MonoBehaviour
     //public Transform wordPanel1, wordPanel2;
     public Transform A4, A5, A6, B4, B5, B6, C4, C5, C6, D4, D5, D6, E4, E5, E6, F4, F5, F6, G4, G5, G6, H4, H5, H6;
     public Transform A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z;
-    List<Transform> Col1 = new List<Transform>();
-    List<Transform> Col2 = new List<Transform>();
-    List<Transform> Col3 = new List<Transform>();
+    public List<Transform> Col1 = new List<Transform>();
+    public List<Transform> Col2 = new List<Transform>();
+    public List<Transform> Col3 = new List<Transform>();
+    public List<Transform> Col4 = new List<Transform>();
+    public List<Transform> Col5 = new List<Transform>();
+    public List<Transform> Col6 = new List<Transform>();
+    public List<Transform> Col7 = new List<Transform>();
+    public List<Transform> Col8 = new List<Transform>();
+    public List<List<Transform>> Cols = new List<List<Transform>>();
     public List<Transform> Row1 = new List<Transform>();
     public List<Transform> Row2 = new List<Transform>();
     public List<Transform> Row3 = new List<Transform>();
-    List<List<Transform>> Rows = new List<List<Transform>>();
+    public List<List<Transform>> Rows = new List<List<Transform>>();
     List<Sprite> currentWordSprites = new List<Sprite>();
     public static List<string> currentWordFairyAnimations = new List<string>();
     List<string> currentWords = new List<string>();
@@ -41,14 +47,36 @@ public class GameControl : MonoBehaviour
         Col1.Add(A4);
         Col1.Add(A5);
         Col1.Add(A6);
-
         Col2.Add(B4);
         Col2.Add(B5);
         Col2.Add(B6);
-
         Col3.Add(C4);
         Col3.Add(C5);
         Col3.Add(C6);
+        Col4.Add(D4);
+        Col4.Add(D5);
+        Col4.Add(D6);
+        Col5.Add(E4);
+        Col5.Add(E5);
+        Col5.Add(E6);
+        Col6.Add(F4);
+        Col6.Add(F5);
+        Col6.Add(F6);
+        Col7.Add(G4);
+        Col7.Add(G5);
+        Col7.Add(G6);
+        Col8.Add(H4);
+        Col8.Add(H5);
+        Col8.Add(H6);
+
+        Cols.Add(Col1);
+        Cols.Add(Col2);
+        Cols.Add(Col3);
+        Cols.Add(Col4);
+        Cols.Add(Col5);
+        Cols.Add(Col6);
+        Cols.Add(Col7);
+        Cols.Add(Col8);
 
         Row1.Add(A4);
         Row1.Add(B4);
@@ -132,6 +160,8 @@ public class GameControl : MonoBehaviour
     // void Update()
     public void UpdateStage()
     {
+
+
         var fairy = GameObject.Find("Fairy");
         Fairy fairyScript = fairy.GetComponent<Fairy>();
 
@@ -147,7 +177,7 @@ public class GameControl : MonoBehaviour
 
 
         // load current board
-
+        // for 3 rows
         // Row 1
         char[] board1 = new char[8];
         for (int i = 0; i < 8; i++)
@@ -158,35 +188,32 @@ public class GameControl : MonoBehaviour
             }
         }
 
-        // Row 2
-        char[] board2 = new char[8];
-        for (int i = 0; i < 8; i++)
-        {
-            if (Row2[i].childCount > 0)
-            {
-                board2[i] = Row2[i].GetChild(0).gameObject.name[0];
-            }
-        }
+        // // Row 2
+        // char[] board2 = new char[8];
+        // for (int i = 0; i < 8; i++)
+        // {
+        //     if (Row2[i].childCount > 0)
+        //     {
+        //         board2[i] = Row2[i].GetChild(0).gameObject.name[0];
+        //     }
+        // }
 
         // Row 3
-        char[] board3 = new char[8];
-        for (int i = 0; i < 8; i++)
-        {
-            if (Row3[i].childCount > 0)
-            {
-                board3[i] = Row3[i].GetChild(0).gameObject.name[0];
-            }
-        }
+        // char[] board3 = new char[8];
+        // for (int i = 0; i < 8; i++)
+        // {
+        //     if (Row3[i].childCount > 0)
+        //     {
+        //         board3[i] = Row3[i].GetChild(0).gameObject.name[0];
+        //     }
+        // }
 
 
-
-        // run the function
-        // Search(board1, dictionaryLookups);
+        // for 3 rows
+        // run the function      
         Search(board1, dictionaryLookupsList);
-        //  Search(board2, dictionaryLookups);
-        Search(board2, dictionaryLookupsList);
-        //   Search(board3, dictionaryLookups);
-        Search(board3, dictionaryLookupsList);
+        // Search(board2, dictionaryLookupsList);
+        // Search(board3, dictionaryLookupsList);
 
         // for this string in Current Words, use this
         for (int i = 0; i < currentWords.Count; i++)
@@ -199,13 +226,12 @@ public class GameControl : MonoBehaviour
                 if (currentWords[i] == lookup.Name)
                 {
                     if (lookup.isFairy == false)
-                        currentWordSprites.Add(Resources.Load<Sprite>("Images/Animals/" + lookup.Sprite));
+                        currentWordSprites.Add(Resources.Load<Sprite>("Images/Sprites/" + lookup.Sprite));
                     else
                     {
                         currentWordFairyAnimations.Add(lookup.Sprite);
                     }
                 }
-
             }
             //  print(currentWordSprites[i]);  //  fairyScript.NoAnimation();
 
@@ -317,7 +343,7 @@ public class GameControl : MonoBehaviour
 
     public bool dfs(char[] board, int i, int count, string word)
     {
-        //    print(word);
+        print(word);
 
         if (count == word.Length)
             return true;
@@ -480,40 +506,76 @@ public class GameControl : MonoBehaviour
         setParent2(zBlock);
     }
 
+
+    // for 3 rows
+    // private void setParent1(GameObject block)
+    // {
+    //     for (int i = 2; i < Rows.Count; i--)
+    //     {
+    //         for (int h = 0; h < Rows[i].Count; h++)
+    //         {
+    //             if (Rows[i][h].childCount == 0)
+    //             {
+    //                 block.transform.SetParent(Rows[i][h]);
+    //                 break;
+    //             }
+    //             else
+    //             {
+    //                 continue;
+    //             }
+    //         }
+    //     }
+    // }
+
+    // private void setParent2(GameObject block)
+    // {
+    //     for (int i = 2; i < Rows.Count; i--)
+    //     {
+    //         for (int h = 7; h < Rows[i].Count; h--)
+    //         {
+    //             if (Rows[i][h].childCount == 0)
+    //             {
+    //                 block.transform.SetParent(Rows[i][h]);
+    //                 break;
+    //             }
+    //             else
+    //             {
+    //                 continue;
+    //             }
+    //         }
+    //     }
+    // }
+
+    //1 ROW---------------------
+
     private void setParent1(GameObject block)
     {
-        for (int i = 2; i < Rows.Count; i--)
+        for (int h = 0; h < Row1.Count; h++)
         {
-            for (int h = 0; h < Rows[i].Count; h++)
+            if (Row1[h].childCount == 0)
             {
-                if (Rows[i][h].childCount == 0)
-                {
-                    block.transform.SetParent(Rows[i][h]);
-                    break;
-                }
-                else
-                {
-                    continue;
-                }
+                block.transform.SetParent(Row1[h]);
+                break;
+            }
+            else
+            {
+                continue;
             }
         }
     }
 
     private void setParent2(GameObject block)
     {
-        for (int i = 2; i < Rows.Count; i--)
+        for (int h = 7; h < Row1.Count; h--)
         {
-            for (int h = 7; h < Rows[i].Count; h--)
+            if (Row1[h].childCount == 0)
             {
-                if (Rows[i][h].childCount == 0)
-                {
-                    block.transform.SetParent(Rows[i][h]);
-                    break;
-                }
-                else
-                {
-                    continue;
-                }
+                block.transform.SetParent(Row1[h]);
+                break;
+            }
+            else
+            {
+                continue;
             }
         }
     }
