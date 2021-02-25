@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Globalization;
 
 public class GameControl : MonoBehaviour
 {
@@ -24,6 +25,7 @@ public class GameControl : MonoBehaviour
     List<Sprite> currentWordSprites = new List<Sprite>();
     public static List<string> currentWordFairyAnimations = new List<string>();
     List<string> currentWords = new List<string>();
+    string currentWord;
     IDictionary<string, Sprite> wordImages = new Dictionary<string, Sprite>();
     public static List<DictionaryLookup> dictionaryLookupsList = new List<DictionaryLookup>();
 
@@ -33,6 +35,11 @@ public class GameControl : MonoBehaviour
     public Image centerWordImage, leftWordImage, rightWordImage, backgroundWordImage;
     Sprite catSprite, dogSprite, bearSprite, frogSprite, goatSprite, duckSprite, snakeSprite, mouseSprite, horseSprite, tigerSprite, zebraSprite, lizardSprite, donkeySprite, monkeySprite, wolfSprite, batSprite, camelSprite, chickenSprite, dolphinSprite, sharkSprite, forestSprite;
     Sprite motherSprite, sisterSprite, familySprite;
+
+    // prefabs for word elements
+
+    public GameObject fairy, cat;
+    public List<GameObject> prefabs = new List<GameObject>();
 
     public Animator fairyAnimator;
 
@@ -160,10 +167,7 @@ public class GameControl : MonoBehaviour
     // void Update()
     public void UpdateStage()
     {
-
-
-        var fairy = GameObject.Find("Fairy");
-        Fairy fairyScript = fairy.GetComponent<Fairy>();
+        FairyScript fairyScript = fairy.GetComponent<FairyScript>();
 
         // reset Fairy animation
         fairyScript.NoAnimation();
@@ -252,9 +256,14 @@ public class GameControl : MonoBehaviour
         }
         else if (currentWordSprites.Count == 1)
         {
-            print("word");
+            // print(currentWordSprites[0]);
+
+            //  Instantiate(cat, new Vector3(0, 0, 0), Quaternion.identity);
+
             ClearImage(leftWordImage);
             ClearImage(rightWordImage);
+
+            // making permanent, so instantiating prefab, rather than using UI element
             AddImage(centerWordImage, currentWordSprites[0]);
             // ClearImage(backgroundWordImage);
         }
@@ -275,7 +284,6 @@ public class GameControl : MonoBehaviour
 
         // clear for next update
         currentWordFairyAnimations.Clear();
-
         currentWordSprites.Clear();
         currentWords.Clear();
     }
@@ -343,7 +351,7 @@ public class GameControl : MonoBehaviour
 
     public bool dfs(char[] board, int i, int count, string word)
     {
-        print(word);
+        // print(word);
 
         if (count == word.Length)
             return true;
@@ -362,13 +370,14 @@ public class GameControl : MonoBehaviour
         if (found && !currentWords.Contains(word))
         {
             currentWords.Add(word);
+
+            // for new one word only and permanent method
+            currentWord = word;
         }
 
 
         return found;
     }
-
-
 
 
 
@@ -576,6 +585,46 @@ public class GameControl : MonoBehaviour
             else
             {
                 continue;
+            }
+        }
+    }
+
+
+    public void MoveRight()
+    {
+        fairy.transform.position = new Vector2(fairy.transform.position.x + 1, fairy.transform.position.y);
+    }
+
+    public void MoveLeft()
+    {
+        fairy.transform.position = new Vector2(fairy.transform.position.x - 1, fairy.transform.position.y);
+    }
+
+    public void SaveWord()
+    {
+        TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
+        currentWord = textInfo.ToLower(currentWord);
+        currentWord = textInfo.ToTitleCase(currentWord);
+        print(currentWord);
+
+        for (int i = 0; i < prefabs.Count; i++)
+        {
+            if (currentWord == prefabs[i].name)
+            {
+                Instantiate(prefabs[i], new Vector3(fairy.transform.position.x - 5, 0, 0), Quaternion.identity);
+            }
+        }
+        DeleteBlocks();
+        ClearImage(centerWordImage);
+    }
+
+    public void DeleteBlocks()
+    {
+        for (int i = 0; i < Row1.Count; i++)
+        {
+            if (Row1[i].childCount > 0)
+            {
+                Destroy(Row1[i].transform.GetChild(0).gameObject);
             }
         }
     }

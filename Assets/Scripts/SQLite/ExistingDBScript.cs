@@ -23,7 +23,7 @@ public class ExistingDBScript : MonoBehaviour
             //GameControl.dictionaryLookups.Add(dictionaryLookup.Name, dictionaryLookup.Sprite);
             GameControl.dictionaryLookupsList.Add(dictionaryLookup);
 
-            ToConsole(dictionaryLookup.ToString());
+            //  ToConsole(dictionaryLookup.ToString());
 
         }
     }
