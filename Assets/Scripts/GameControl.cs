@@ -23,6 +23,7 @@ public class GameControl : MonoBehaviour
     public List<Transform> Row3 = new List<Transform>();
     public List<List<Transform>> Rows = new List<List<Transform>>();
     List<Sprite> currentWordSprites = new List<Sprite>();
+    List<Sprite> currentBackgroundWordSprites = new List<Sprite>();
     public static List<string> currentWordFairyAnimations = new List<string>();
     List<string> currentWords = new List<string>();
     string currentWord;
@@ -33,6 +34,9 @@ public class GameControl : MonoBehaviour
     char[] board;
 
     public Image centerWordImage, leftWordImage, rightWordImage, backgroundWordImage;
+
+    public SpriteRenderer foregroundImage, backgroundImage;
+
     Sprite catSprite, dogSprite, bearSprite, frogSprite, goatSprite, duckSprite, snakeSprite, mouseSprite, horseSprite, tigerSprite, zebraSprite, lizardSprite, donkeySprite, monkeySprite, wolfSprite, batSprite, camelSprite, chickenSprite, dolphinSprite, sharkSprite, forestSprite;
     Sprite motherSprite, sisterSprite, familySprite;
 
@@ -156,12 +160,22 @@ public class GameControl : MonoBehaviour
         image.color = tempColor;
     }
 
-    private void AddImage(Image image, Sprite sprite)
+    private void ClearSprite(SpriteRenderer spriteRenderer)
     {
-        var tempColor = image.color;
-        tempColor.a = 1f;
-        image.color = tempColor;
-        image.sprite = sprite;
+        spriteRenderer.sprite = null;
+    }
+
+    // private void AddImage(Image image, Sprite sprite)
+    // {
+    //     var tempColor = image.color;
+    //     tempColor.a = 1f;
+    //     image.color = tempColor;
+    //     image.sprite = sprite;
+    // }
+
+    private void AddSprite(SpriteRenderer spriteRenderer, Sprite sprite)
+    {
+        spriteRenderer.sprite = sprite;
     }
 
     // void Update()
@@ -193,14 +207,14 @@ public class GameControl : MonoBehaviour
         }
 
         // // Row 2
-        // char[] board2 = new char[8];
-        // for (int i = 0; i < 8; i++)
-        // {
-        //     if (Row2[i].childCount > 0)
-        //     {
-        //         board2[i] = Row2[i].GetChild(0).gameObject.name[0];
-        //     }
-        // }
+        char[] board2 = new char[8];
+        for (int i = 0; i < 8; i++)
+        {
+            if (Row2[i].childCount > 0)
+            {
+                board2[i] = Row2[i].GetChild(0).gameObject.name[0];
+            }
+        }
 
         // Row 3
         // char[] board3 = new char[8];
@@ -216,7 +230,7 @@ public class GameControl : MonoBehaviour
         // for 3 rows
         // run the function      
         Search(board1, dictionaryLookupsList);
-        // Search(board2, dictionaryLookupsList);
+        Search(board2, dictionaryLookupsList);
         // Search(board3, dictionaryLookupsList);
 
         // for this string in Current Words, use this
@@ -229,11 +243,17 @@ public class GameControl : MonoBehaviour
             {
                 if (currentWords[i] == lookup.Name)
                 {
-                    if (lookup.isFairy == false)
-                        currentWordSprites.Add(Resources.Load<Sprite>("Images/Sprites/" + lookup.Sprite));
-                    else
+                    if (lookup.isFairy)
                     {
                         currentWordFairyAnimations.Add(lookup.Sprite);
+                    }
+                    if (lookup.isBackground)
+                    {
+                        currentBackgroundWordSprites.Add(Resources.Load<Sprite>("Images/Backgrounds/" + lookup.Sprite));
+                    }
+                    else
+                    {
+                        currentWordSprites.Add(Resources.Load<Sprite>("Images/Sprites/" + lookup.Sprite));
                     }
                 }
             }
@@ -247,37 +267,45 @@ public class GameControl : MonoBehaviour
 
         // //RULES ----------------     
 
-        if (currentWordSprites.Count > 1)
-        {
-            ClearImage(centerWordImage);
-            AddImage(leftWordImage, currentWordSprites[0]);
-            AddImage(rightWordImage, currentWordSprites[1]);
-            // ClearImage(backgroundWordImage);
-        }
-        else if (currentWordSprites.Count == 1)
+        // if (currentWordSprites.Count > 1)
+        // {
+        //     ClearImage(centerWordImage);
+        //     AddImage(leftWordImage, currentWordSprites[0]);
+        //     AddImage(rightWordImage, currentWordSprites[1]);
+        //     // ClearImage(backgroundWordImage);
+        // }
+        if (currentWordSprites.Count == 1)
         {
             // print(currentWordSprites[0]);
 
             //  Instantiate(cat, new Vector3(0, 0, 0), Quaternion.identity);
 
-            ClearImage(leftWordImage);
-            ClearImage(rightWordImage);
+            //ClearImage(leftWordImage);
+            //ClearImage(rightWordImage);
 
             // making permanent, so instantiating prefab, rather than using UI element
-            AddImage(centerWordImage, currentWordSprites[0]);
+            // AddImage(centerWordImage, currentWordSprites[0]);
+            AddSprite(foregroundImage, currentWordSprites[0]);
             // ClearImage(backgroundWordImage);
         }
         else
         {
-            ClearImage(centerWordImage);
-            ClearImage(leftWordImage);
-            ClearImage(rightWordImage);
+            //ClearImage(centerWordImage);
+            ClearSprite(foregroundImage);
+            //ClearImage(leftWordImage);
+            // ClearImage(rightWordImage);
             // ClearImage(backgroundWordImage);
         }
 
         if (currentWordFairyAnimations.Count == 1)
         {
             fairyScript.Animation(currentWordFairyAnimations[0]);
+        }
+
+        if (currentBackgroundWordSprites.Count == 1)
+        {
+            AddSprite(backgroundImage, currentBackgroundWordSprites[0]);
+            // print("test");
         }
 
 

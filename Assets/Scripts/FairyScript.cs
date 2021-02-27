@@ -30,5 +30,4 @@ public class FairyScript : MonoBehaviour
         animator.SetBool(word, true);
         GameControl.currentWordFairyAnimations.Clear();
     }
-
 }

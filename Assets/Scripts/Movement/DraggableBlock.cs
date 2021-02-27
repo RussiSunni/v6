@@ -55,4 +55,9 @@ public class DraggableBlock : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
         GameControl gameControlScript = gameControl.GetComponent<GameControl>();
         gameControlScript.UpdateStage();
     }
+
+
+
+
+
 }

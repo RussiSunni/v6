@@ -8,6 +8,7 @@ public class DictionaryLookup
     public string Name { get; set; }
     public string Sprite { get; set; }
     public bool isFairy { get; set; }
+    public bool isBackground { get; set; }
 
 
     public override string ToString()
