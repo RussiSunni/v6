@@ -6,7 +6,7 @@ using System.Globalization;
 
 public class GameControl : MonoBehaviour
 {
-    //public Transform wordPanel1, wordPanel2;
+    public Camera MyCamera;
     public Transform A4, A5, A6, B4, B5, B6, C4, C5, C6, D4, D5, D6, E4, E5, E6, F4, F5, F6, G4, G5, G6, H4, H5, H6;
     public Transform A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z;
     public List<Transform> Col1 = new List<Transform>();
@@ -34,7 +34,7 @@ public class GameControl : MonoBehaviour
     string word;
     char[] board;
 
-    public Image centerWordImage, leftWordImage, rightWordImage, backgroundWordImage;
+    // public Image centerWordImage, leftWordImage, rightWordImage, backgroundWordImage;
 
     public SpriteRenderer foregroundImage, backgroundImage;
 
@@ -43,7 +43,7 @@ public class GameControl : MonoBehaviour
 
     // prefabs for word elements
 
-    public GameObject fairy, cat;
+    public GameObject fairy;
     public List<GameObject> prefabs = new List<GameObject>();
 
     public Animator fairyAnimator;
@@ -53,10 +53,10 @@ public class GameControl : MonoBehaviour
 
     void Start()
     {
-        centerWordImage.preserveAspect = true;
-        leftWordImage.preserveAspect = true;
-        rightWordImage.preserveAspect = true;
-        backgroundWordImage.preserveAspect = false;
+        // centerWordImage.preserveAspect = true;
+        // leftWordImage.preserveAspect = true;
+        // rightWordImage.preserveAspect = true;
+        // backgroundWordImage.preserveAspect = false;
 
         Col1.Add(A4);
         Col1.Add(A5);
@@ -123,9 +123,9 @@ public class GameControl : MonoBehaviour
         Rows.Add(Row2);
         Rows.Add(Row3);
 
-        ClearImage(centerWordImage);
-        ClearImage(leftWordImage);
-        ClearImage(rightWordImage);
+        // ClearImage(centerWordImage);
+        // ClearImage(leftWordImage);
+        // ClearImage(rightWordImage);
 
 
         // database design
@@ -260,6 +260,10 @@ public class GameControl : MonoBehaviour
                     else if (lookup.isEffect)
                     {
                         currentEffectsWords.Add(lookup.Name);
+                    }
+                    else
+                    {
+                        currentWordSprites.Add(Resources.Load<Sprite>("Images/Sprites/" + lookup.Sprite));
                     }
 
                 }
@@ -630,13 +634,13 @@ public class GameControl : MonoBehaviour
             }
             // currentWord = null;
         }
-        DeleteBlocks();
+        ClearBlocks();
         //ClearImage(centerWordImage);
         ClearSprite(foregroundImage);
         ClearSprite(backgroundImage);
     }
 
-    public void DeleteBlocks()
+    public void ClearBlocks()
     {
         for (int i = 0; i < Row1.Count; i++)
         {
@@ -660,9 +664,26 @@ public class GameControl : MonoBehaviour
         {
             if (DragDrop.selected != null)
             {
-                print(DragDrop.selected.name);
                 DragDrop.selected.transform.Rotate(new Vector3(0, 180, 0));
             }
+        }
+
+        if (lookupName == "DELETE")
+        {
+            if (DragDrop.selected != null)
+            {
+                Destroy(DragDrop.selected);
+            }
+        }
+
+        if (lookupName == "DOWN")
+        {
+            fairy.transform.position = new Vector2(fairy.transform.position.x, fairy.transform.position.y - 2);
+        }
+
+        if (lookupName == "UP")
+        {
+            fairy.transform.position = new Vector2(fairy.transform.position.x, fairy.transform.position.y + 2);
         }
     }
 
