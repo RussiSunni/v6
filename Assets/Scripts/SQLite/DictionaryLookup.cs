@@ -9,6 +9,8 @@ public class DictionaryLookup
     public string Sprite { get; set; }
     public bool isFairy { get; set; }
     public bool isBackground { get; set; }
+    public bool isCommand { get; set; }
+    public bool isEffect { get; set; }
 
 
     public override string ToString()

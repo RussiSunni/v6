@@ -26,6 +26,7 @@ public class GameControl : MonoBehaviour
     List<Sprite> currentBackgroundWordSprites = new List<Sprite>();
     public static List<string> currentWordFairyAnimations = new List<string>();
     List<string> currentWords = new List<string>();
+    List<string> currentEffectsWords = new List<string>();
     string currentWord;
     IDictionary<string, Sprite> wordImages = new Dictionary<string, Sprite>();
     public static List<DictionaryLookup> dictionaryLookupsList = new List<DictionaryLookup>();
@@ -46,6 +47,8 @@ public class GameControl : MonoBehaviour
     public List<GameObject> prefabs = new List<GameObject>();
 
     public Animator fairyAnimator;
+
+    public ParticleSystem weatherCreator;
 
 
     void Start()
@@ -150,7 +153,6 @@ public class GameControl : MonoBehaviour
         //     print(dictionaryLookup.Key + " " + dictionaryLookup.Value);
         // }
 
-
     }
 
     private void ClearImage(Image image)
@@ -247,14 +249,19 @@ public class GameControl : MonoBehaviour
                     {
                         currentWordFairyAnimations.Add(lookup.Sprite);
                     }
-                    if (lookup.isBackground)
+                    else if (lookup.isBackground)
                     {
                         currentBackgroundWordSprites.Add(Resources.Load<Sprite>("Images/Backgrounds/" + lookup.Sprite));
                     }
-                    else
+                    else if (lookup.isCommand)
                     {
-                        currentWordSprites.Add(Resources.Load<Sprite>("Images/Sprites/" + lookup.Sprite));
+                        Commands(lookup.Name);
                     }
+                    else if (lookup.isEffect)
+                    {
+                        currentEffectsWords.Add(lookup.Name);
+                    }
+
                 }
             }
             //  print(currentWordSprites[i]);  //  fairyScript.NoAnimation();
@@ -276,25 +283,11 @@ public class GameControl : MonoBehaviour
         // }
         if (currentWordSprites.Count == 1)
         {
-            // print(currentWordSprites[0]);
-
-            //  Instantiate(cat, new Vector3(0, 0, 0), Quaternion.identity);
-
-            //ClearImage(leftWordImage);
-            //ClearImage(rightWordImage);
-
-            // making permanent, so instantiating prefab, rather than using UI element
-            // AddImage(centerWordImage, currentWordSprites[0]);
             AddSprite(foregroundImage, currentWordSprites[0]);
-            // ClearImage(backgroundWordImage);
         }
         else
         {
-            //ClearImage(centerWordImage);
             ClearSprite(foregroundImage);
-            //ClearImage(leftWordImage);
-            // ClearImage(rightWordImage);
-            // ClearImage(backgroundWordImage);
         }
 
         if (currentWordFairyAnimations.Count == 1)
@@ -305,32 +298,30 @@ public class GameControl : MonoBehaviour
         if (currentBackgroundWordSprites.Count == 1)
         {
             AddSprite(backgroundImage, currentBackgroundWordSprites[0]);
-            // print("test");
+        }
+        else
+        {
+            ClearSprite(backgroundImage);
         }
 
+        if (currentEffectsWords.Count == 1)
+        {
+            Effects(currentEffectsWords[0]);
+            // Effects(currentEffectsWords[0].Name);
+        }
+        else
+        {
+            Effects("STOP");
+        }
 
 
         // clear for next update
         currentWordFairyAnimations.Clear();
         currentWordSprites.Clear();
+        currentBackgroundWordSprites.Clear();
+        currentEffectsWords.Clear();
         currentWords.Clear();
     }
-
-
-    // private bool Search(char[] board, IDictionary<string, string> dictionaryLookups)
-    // {
-    //     for (int i = 0; i < board.Length; i++)
-    //     {
-    //         foreach (KeyValuePair<string, string> dictionaryLookup in dictionaryLookups)
-    //         {
-    //             if (board[i] == dictionaryLookup.Key[0] && dfs(board, i, 0, dictionaryLookup.Key))
-    //             {
-    //                 //print(words[h]);
-    //             }
-    //         }
-    //     }
-    //     return false;
-    // }
 
 
     private bool Search(char[] board, List<DictionaryLookup> dictionaryLookupsList)
@@ -387,7 +378,6 @@ public class GameControl : MonoBehaviour
         if (i < 0 || i >= board.Length || board[i] != word[count])
             return false;
 
-
         char temp = board[i];
         board[i] = ' ';
 
@@ -401,13 +391,10 @@ public class GameControl : MonoBehaviour
 
             // for new one word only and permanent method
             currentWord = word;
+            print(currentWord);
         }
-
-
         return found;
     }
-
-
 
 
     // optimise to a loop
@@ -641,9 +628,12 @@ public class GameControl : MonoBehaviour
             {
                 Instantiate(prefabs[i], new Vector3(fairy.transform.position.x - 5, 0, 0), Quaternion.identity);
             }
+            // currentWord = null;
         }
         DeleteBlocks();
-        ClearImage(centerWordImage);
+        //ClearImage(centerWordImage);
+        ClearSprite(foregroundImage);
+        ClearSprite(backgroundImage);
     }
 
     public void DeleteBlocks()
@@ -654,6 +644,37 @@ public class GameControl : MonoBehaviour
             {
                 Destroy(Row1[i].transform.GetChild(0).gameObject);
             }
+        }
+        for (int i = 0; i < Row2.Count; i++)
+        {
+            if (Row2[i].childCount > 0)
+            {
+                Destroy(Row2[i].transform.GetChild(0).gameObject);
+            }
+        }
+    }
+
+    private void Commands(string lookupName)
+    {
+        if (lookupName == "FLIP")
+        {
+            if (DragDrop.selected != null)
+            {
+                print(DragDrop.selected.name);
+                DragDrop.selected.transform.Rotate(new Vector3(0, 180, 0));
+            }
+        }
+    }
+
+    private void Effects(string lookupName)
+    {
+        if (lookupName == "RAIN")
+        {
+            weatherCreator.Play();
+        }
+        if (lookupName == "STOP")
+        {
+            weatherCreator.Stop();
         }
     }
 }
