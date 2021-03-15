@@ -2659,7 +2659,6 @@ MonoBehaviour:
   foregroundImage: {fileID: 1187659025}
   backgroundImage: {fileID: 155160117}
   fairy: {fileID: 2056999603}
-  cat: {fileID: 7775676182646919824, guid: dd5636d6cee2d3101932e718175ceb5a, type: 3}
   prefabs:
   - {fileID: 7775676182646919824, guid: dd5636d6cee2d3101932e718175ceb5a, type: 3}
   - {fileID: 2496500953660281376, guid: 595745ae7804a3b7d8a87df07acf2b03, type: 3}
@@ -2683,6 +2682,7 @@ MonoBehaviour:
   - {fileID: 2979784547834405204, guid: aa694046abf4e507190d338e333c2af7, type: 3}
   - {fileID: 6732116118917410977, guid: 9a8868d45bbec2e82a5c579fb2145adb, type: 3}
   - {fileID: 775624404267472299, guid: be55ae3539457174787dd18eafcecce4, type: 3}
+  - {fileID: 732486715020417258, guid: b50799d8990bd59598b5bcda7ff47f55, type: 3}
   fairyAnimator: {fileID: 1169421919}
   weatherCreator: {fileID: 1940283342}
 --- !u!1 &684399462
